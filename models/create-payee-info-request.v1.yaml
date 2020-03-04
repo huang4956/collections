@@ -1,0 +1,16 @@
+title: create-payee-info-request
+type: object
+description: 收款人信息
+properties:
+  business_type:
+    type: string
+    description: '业务类型  1:供应商付款 3:VAT缴税'
+  organization_code:
+    type: string
+    description: '统一社会信用代码:账户类型为对公，且币种为人民币必填'
+  name:
+    type: string
+    description: 收款人名称
+required:
+  - business_type
+  - name

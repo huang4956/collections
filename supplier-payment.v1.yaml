@@ -147,7 +147,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ./models/payee.v1.yaml
+              $ref: ./models/create-payee-request.v1.yaml
     get:
       summary: GET payees
       operationId: get-payees

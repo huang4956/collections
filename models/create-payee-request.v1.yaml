@@ -1,0 +1,20 @@
+title: create-payee-request
+type: object
+properties:
+  name:
+    type: string
+    description: 收款人姓名
+  phone:
+    type: string
+    description: 收款人联系方式
+  bank_info:
+    $ref: ./create-bank-info-request.v1.yaml
+  payee_info:
+    $ref: ./create-payee-info-request.v1.yaml
+  attachment_id:
+    type: string
+    description: 附件id
+required:
+  - name
+  - bank_info
+  - attachment_id
