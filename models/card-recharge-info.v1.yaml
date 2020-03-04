@@ -1,0 +1,30 @@
+title: card-recharge-info
+type: object
+description: 虚拟卡充值记录
+properties:
+  id:
+    type: string
+  account_name:
+    type: string
+    description: 账户名称
+  account_number:
+    type: string
+    description: 账户号
+  type:
+    type: string
+    description: 交易类型
+  status:
+    type: string
+    description: 交易状态
+  amount:
+    type: string
+    description: 金额
+  currency:
+    type: string
+    description: 币种
+  memo:
+    type: string
+    description: 备注信息
+  create_time:
+    type: string
+    description: 创建时间

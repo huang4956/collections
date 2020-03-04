@@ -1,0 +1,17 @@
+title: VerificationCode
+type: object
+x-tags:
+  - VerificationCode
+  - Verification
+  - code
+properties:
+  id:
+    type: string
+    description: Verification code id
+  type:
+    $ref: ./Verification-Code-Enum.v1.yaml
+  phone:
+    type: string
+  create_time:
+    type: string
+    format: date

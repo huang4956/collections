@@ -1,0 +1,221 @@
+openapi: 3.0.0
+info:
+  title: supplier-payment
+  version: '1.0'
+  description: 供应商付款api
+servers:
+  - url: 'https://api.sandbox.lianlianglobal.com/payments/supplier/v1'
+    description: Sandbox
+  - description: Production
+    url: 'https://api.lianlianglobal.com/payments/supplier/v1'
+paths:
+  /cards:
+    post:
+      summary: 申请充值虚拟卡
+      operationId: post-cards
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./models/card.v1.yaml
+      description: 申请充值虚拟卡
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                currency:
+                  type: string
+                  description: 币种
+        description: ''
+    get:
+      summary: ''
+      operationId: get-cards
+      responses:
+        '200':
+          description: OK
+      description: 根据币种获取卡信息
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                currency:
+                  type: string
+                  description: 币种
+              required:
+                - currency
+        description: ''
+  '/cards/currency/{currency_code}':
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./models/card.v1.yaml
+      operationId: get-cards
+      description: 根据币种获取卡号信息
+    parameters:
+      - schema:
+          type: string
+        name: currency_code
+        in: path
+        required: true
+  /card-recharges:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: number
+                    description: 总数
+                  list:
+                    type: array
+                    description: 充值记录
+                    minItems: 0
+                    items:
+                      $ref: ./models/card-recharge-info.v1.yaml
+                required:
+                  - total
+                  - list
+      operationId: get-cards-recharges
+      description: 查询虚拟卡充值记录
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                currency:
+                  type: string
+                  description: 币种
+                account_name:
+                  type: string
+                  description: 账户名称
+                card_no:
+                  type: string
+                  description: 卡号
+                start_time:
+                  type: string
+                  description: 开始时间
+                end_time:
+                  type: string
+                  description: 结束时间
+                page_size:
+                  type: integer
+                  description: 分页大小，默认20
+                  minimum: 0
+                  maximum: 100
+                page_number:
+                  type: integer
+                  description: 页码
+                  minimum: 0
+                  maximum: 99999
+              required:
+                - page_size
+                - page_number
+        description: ''
+    parameters: []
+  '/payees/{payee_id}':
+    post:
+      summary: ''
+      operationId: post-payees
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./models/payee.v1.yaml
+      description: 创建收款人
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./models/payee.v1.yaml
+    get:
+      summary: ''
+      operationId: get-payees
+      responses:
+        '200':
+          description: OK
+      description: 查询收款人信息
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: ./models/query-payee-request.v1.yaml
+        description: ''
+    delete:
+      summary: ''
+      operationId: delete-payees
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./models/payee.v1.yaml
+      description: 删除收款人
+    parameters:
+      - schema:
+          type: string
+        name: payee_id
+        in: path
+        required: true
+  /pays:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./models/payment.v1.yaml
+      operationId: get-pays
+      description: 付款记录查询
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./models/query-payment-request.v1.yaml
+    post:
+      summary: ''
+      operationId: post-pays
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./models/payment.v1.yaml
+      description: 创建付款指令
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./models/create-payment-request.v1.yaml
+components:
+  schemas: {}
+  securitySchemes:
+    Authorization:
+      name: Developer Token
+      type: apiKey
+      in: query

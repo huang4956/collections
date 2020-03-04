@@ -1,0 +1,17 @@
+title: attachment
+type: object
+properties:
+  id:
+    type: string
+    description: Document id in Lianlian Pay system
+  name:
+    type: string
+    description: Document name
+  size:
+    type: integer
+    description: Document size
+  create_time:
+    type: string
+    format: date-time
+    description: 'Document create time, UTC+0 timestamp'
+description: 附件接口

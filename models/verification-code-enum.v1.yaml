@@ -1,0 +1,13 @@
+type: string
+title: Verification-Code-Enum
+enum:
+  - WITHDRAW_COMBINE
+  - SUPPLIER_PAYMENT
+example: WITHDRAW_COMBINE
+description: |-
+  State a Payment is in.  One of:
+
+  | Value | Description |
+  |--------|------------|
+  | WITHDRAW_COMBINE| Withdraw verification code |
+  | SUPPLIER_PAYMENT | Supplier payment verification code |

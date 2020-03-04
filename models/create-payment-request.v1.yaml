@@ -1,0 +1,53 @@
+title: create-payment-request
+type: object
+properties:
+  payee_id:
+    type: string
+    description: 收款人编号
+  attachment_id:
+    type: string
+    description: 附件id
+  procurement_type:
+    type: string
+    description: 采购类型
+  logistics:
+    type: string
+    description: 物流方式
+  goods_price:
+    type: string
+    description: 商品单价
+  goods_number:
+    type: string
+    description: 商品数量
+  goods_name:
+    type: string
+    description: 商品名称
+  trade_date:
+    type: string
+    default: yyyy-MM-dd
+    description: 交易时间
+    format: date
+  target_amount:
+    type: string
+    description: 目标金额
+  target_currency:
+    type: string
+    description: 目标币种
+  source_currency:
+    type: string
+    description: 源币种
+  client_id:
+    type: string
+    description: 外部唯一单号
+required:
+  - payee_id
+  - attachment_id
+  - procurement_type
+  - logistics
+  - goods_price
+  - goods_number
+  - goods_name
+  - target_amount
+  - target_currency
+  - source_currency
+  - client_id

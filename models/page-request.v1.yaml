@@ -1,0 +1,16 @@
+title: page-request
+type: object
+description: ''
+properties:
+  page_size:
+    type: number
+    minimum: 1
+    maximum: 100
+    description: 分页大小
+  page_number:
+    type: number
+    minimum: 0
+    description: 页码
+required:
+  - page_size
+  - page_number

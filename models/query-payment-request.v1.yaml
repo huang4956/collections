@@ -1,0 +1,23 @@
+title: query-payment-request
+type: object
+properties:
+  client_id:
+    type: string
+    description: 外部唯一单号
+  payee_id:
+    type: string
+    description: 收款人编号
+  page:
+    $ref: ./page-request.v1.yaml
+  start_time:
+    type: string
+    format: date-time
+    description: 开始时间
+  end_time:
+    type: string
+    format: date-time
+    description: 结束时间
+required:
+  - page
+  - start_time
+  - end_time

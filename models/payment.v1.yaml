@@ -1,0 +1,69 @@
+title: payment
+type: object
+properties:
+  id:
+    type: string
+    description: ''
+  source_currency:
+    type: string
+    description: 源币种
+  source_amount:
+    type: string
+    description: 源金额
+  target_currency:
+    type: string
+    description: 目标币种
+  target_amount:
+    type: string
+    description: 目标金额
+  trade_date:
+    type: string
+    description: 交易时间
+  goods_name:
+    type: string
+    description: 商品名称
+  goods_number:
+    type: string
+    description: 商品数量
+  goods_price:
+    type: string
+    description: 商品单价
+  logistics:
+    type: string
+    description: 物流方式
+  procurement_type:
+    type: string
+    description: 采购类型
+  attachment_id:
+    type: string
+    description: 附件id
+  create_time:
+    type: string
+    description: 付款单创建时间
+  status:
+    type: string
+    description: 付款单状态
+  failed_reson:
+    type: string
+    description: 失败原因
+  exchange_rate:
+    type: string
+    description: 汇率
+  exhcange_rate_time:
+    type: string
+    description: 汇率时间
+  commission_receivable:
+    type: string
+    description: 应收手续费
+  commission_received:
+    type: string
+    description: 实收手续费
+  paied_time:
+    type: string
+    description: 付款时间
+  payee_id:
+    type: string
+    description: 收款人id
+  client_id:
+    type: string
+    description: 外部流水号
