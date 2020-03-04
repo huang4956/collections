@@ -71,7 +71,7 @@ paths:
         required: true
   /card-recharges:
     get:
-      summary: Your GET endpoint
+      summary: GET crad recharges
       tags: []
       responses:
         '200':
