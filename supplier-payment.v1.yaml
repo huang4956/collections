@@ -11,7 +11,7 @@ servers:
 paths:
   /cards:
     post:
-      summary: 申请充值虚拟卡
+      summary: POST apply card
       operationId: post-cards
       responses:
         '200':
@@ -32,7 +32,7 @@ paths:
                   description: 币种
         description: ''
     get:
-      summary: ''
+      summary: GET cards
       operationId: get-cards
       responses:
         '200':
@@ -52,7 +52,7 @@ paths:
         description: ''
   '/cards/currency/{currency_code}':
     get:
-      summary: Your GET endpoint
+      summary: GET card by currency
       tags: []
       responses:
         '200':
@@ -133,7 +133,7 @@ paths:
     parameters: []
   '/payees/{payee_id}':
     post:
-      summary: ''
+      summary: POST create payee
       operationId: post-payees
       responses:
         '200':
@@ -149,7 +149,7 @@ paths:
             schema:
               $ref: ./models/payee.v1.yaml
     get:
-      summary: ''
+      summary: GET payees
       operationId: get-payees
       responses:
         '200':
@@ -162,7 +162,7 @@ paths:
               $ref: ./models/query-payee-request.v1.yaml
         description: ''
     delete:
-      summary: ''
+      summary: DELETE payee
       operationId: delete-payees
       responses:
         '200':
@@ -180,7 +180,7 @@ paths:
         required: true
   /pays:
     get:
-      summary: Your GET endpoint
+      summary: GET pays
       tags: []
       responses:
         '200':
@@ -197,7 +197,7 @@ paths:
             schema:
               $ref: ./models/query-payment-request.v1.yaml
     post:
-      summary: ''
+      summary: POST create a payment
       operationId: post-pays
       responses:
         '200':
