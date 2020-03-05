@@ -216,6 +216,28 @@ paths:
           application/json:
             schema:
               $ref: ./models/create-payment-request.v1.yaml
+  /verification-codes:
+    post:
+      summary: POST verification codes
+      operationId: post-verification-codes
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      description: ''
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: 'SUPPLIER_PAYMENT("供应商付款")'
 components:
   schemas: {}
   securitySchemes:
