@@ -270,7 +270,7 @@ paths:
     parameters: []
   /batch-payments:
     get:
-      summary: GET pays
+      summary: GET batch payments
       tags: []
       responses:
         '200':
@@ -293,7 +293,7 @@ paths:
               required:
                 - extBatchId
     post:
-      summary: POST create a payment
+      summary: POST create batch payment
       operationId: post-pays
       responses:
         '200':
@@ -400,7 +400,7 @@ paths:
                 type:
                   type: string
                   description: 'SUPPLIER_PAYMENT("供应商付款")'
-  '/batch-pays/{extBatchId}/payments':
+  '/batch-payments/{extBatchId}/payments':
     parameters:
       - schema:
           type: string
