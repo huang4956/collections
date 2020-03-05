@@ -154,6 +154,10 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./models/payee.v1.yaml
       description: 查询收款人信息
       requestBody:
         content:
