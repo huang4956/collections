@@ -1,7 +1,5 @@
-title: create-bank-info
+title: payee-bank-account
 type: object
-x-examples: {}
-description: 银行卡信息
 properties:
   currencys:
     type: array
@@ -59,18 +57,23 @@ properties:
     type: string
     description: 银行所在地为美国时必填
   payeeInfo:
-    $ref: ./create-payee-info-request.v1.yaml
+    type: object
+    properties:
+      name:
+        type: string
+        description: 姓名
+      certType:
+        type: string
+        description: 证件类型
+      certNo:
+        type: string
+        description: 证件号码
+      type:
+        type: string
+        description: 收款人类型：公司、个人
   attachementId:
     type: string
     description: 附件id
-required:
-  - currencys
-  - accountName
-  - accountPhone
-  - cardNumber
-  - bindType
-  - address
-  - name
-  - region
-  - userType
-  - cardType
+  extAccountId:
+    type: string
+    description: 外部单号

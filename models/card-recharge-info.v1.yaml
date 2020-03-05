@@ -4,10 +4,10 @@ description: 虚拟卡充值记录
 properties:
   id:
     type: string
-  account_name:
+  accountName:
     type: string
     description: 账户名称
-  account_number:
+  accountNumber:
     type: string
     description: 账户号
   type:
@@ -15,7 +15,7 @@ properties:
     description: 交易类型
   status:
     type: string
-    description: 交易状态
+    description: 交易状态，只有交易成功
   amount:
     type: string
     description: 金额
@@ -25,6 +25,6 @@ properties:
   memo:
     type: string
     description: 备注信息
-  create_time:
+  createTime:
     type: string
     description: 创建时间

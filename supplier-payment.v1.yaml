@@ -20,7 +20,7 @@ paths:
             application/json:
               schema:
                 $ref: ./models/card.v1.yaml
-      description: 申请充值虚拟卡
+      description: '[暂时不用]申请充值虚拟卡'
       requestBody:
         content:
           application/json:
@@ -37,6 +37,10 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./models/card.v1.yaml
       description: 根据币种获取卡信息
       requestBody:
         content:
@@ -50,25 +54,6 @@ paths:
               required:
                 - currency
         description: ''
-  '/cards/currency/{currency_code}':
-    get:
-      summary: GET card by currency
-      tags: []
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: ./models/card.v1.yaml
-      operationId: get-cards
-      description: 根据币种获取卡号信息
-    parameters:
-      - schema:
-          type: string
-        name: currency_code
-        in: path
-        required: true
   /card-recharges:
     get:
       summary: GET crad recharges
@@ -104,36 +89,36 @@ paths:
                 currency:
                   type: string
                   description: 币种
-                account_name:
-                  type: string
-                  description: 账户名称
-                card_no:
-                  type: string
-                  description: 卡号
-                start_time:
-                  type: string
-                  description: 开始时间
-                end_time:
-                  type: string
-                  description: 结束时间
-                page_size:
-                  type: integer
-                  description: 分页大小，默认20
-                  minimum: 0
-                  maximum: 100
-                page_number:
+                pageNumber:
                   type: integer
                   description: 页码
                   minimum: 0
                   maximum: 99999
+                pageSize:
+                  type: integer
+                  description: 分页大小，默认20
+                  minimum: 0
+                  maximum: 100
+                endTime:
+                  type: string
+                  description: 结束时间
+                startTime:
+                  type: string
+                  description: '开始时间,最长一年'
+                cardNo:
+                  type: string
+                  description: 卡号
               required:
-                - page_size
-                - page_number
+                - currency
+                - startTime
+                - endTime
+                - pageSize
+                - pageNumber
         description: ''
     parameters: []
-  '/payees/{payee_id}':
+  /payee-bank-account:
     post:
-      summary: POST create payee
+      summary: POST create payee bank account
       operationId: post-payees
       responses:
         '200':
@@ -141,15 +126,106 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ./models/payee.v1.yaml
+                $ref: ./models/payee-bank-account.v1.yaml
       description: 创建收款人
       requestBody:
         content:
           application/json:
             schema:
-              $ref: ./models/create-payee-request.v1.yaml
+              type: object
+              properties:
+                attachementId:
+                  type: string
+                  description: 附件id
+                payeeInfo:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: 姓名
+                    certType:
+                      type: string
+                      description: 证件类型
+                    certNo:
+                      type: string
+                      description: 证件号码
+                    type:
+                      type: string
+                      description: 收款人类型：公司、个人
+                  required:
+                    - name
+                routingNumber:
+                  type: string
+                  description: 银行所在地为美国时必填
+                sortCode:
+                  type: string
+                  description: '银行分类号码:银行所在地为英国时必填'
+                swiftCode:
+                  type: string
+                  description: 银行所在地为非大陆时必填
+                cardType:
+                  type: string
+                  description: "    DEBIT(0, \"借记卡\"),\n    CREDIT(1, \"信用卡\"),\n    CORPORATE(2, \"对公银行卡\");"
+                userType:
+                  type: string
+                  description: "    INDIVIDUAL(\"个人\", \"0\"),\n    ENTERPRISE(\"企业\", \"1\");"
+                region:
+                  type: string
+                  description: "    CN(\"CN\", \"中国大陆\"),\n    US(\"US\", \"美国\"),\n    FR(\"FR\", \"法国\"),\n    DE(\"DE\", \"德国\"),\n    IT(\"IT\", \"意大利\"),\n    ES(\"ES\", \"西班牙\"),\n    GB(\"GB\", \"英国\"),\n    HK(\"HK\", \"中国香港\");"
+                code:
+                  type: string
+                  description: 银行编号
+                name:
+                  type: string
+                  description: 银行名称
+                branchName:
+                  type: string
+                  description: 支行名称
+                address:
+                  type: string
+                  description: 银行地址
+                prcptcd:
+                  type: string
+                  description: 大额行号
+                province:
+                  type: string
+                  description: 银行省份
+                city:
+                  type: string
+                  description: 银行城市
+                bindType:
+                  type: string
+                  description: 对公、对私
+                cardNumber:
+                  type: string
+                  description: 银行卡号
+                accountPhone:
+                  type: string
+                  description: 关联手机号
+                accountName:
+                  type: string
+                  description: 账户名称
+                currencys:
+                  type: array
+                  description: 币种
+                  items: {}
+                extAccountId:
+                  type: string
+                  description: 外部单号
+              required:
+                - cardType
+                - userType
+                - region
+                - name
+                - address
+                - bindType
+                - cardNumber
+                - accountPhone
+                - accountName
+                - currencys
+                - extAccountId
     get:
-      summary: GET payees
+      summary: GET payees bank account
       operationId: get-payees
       responses:
         '200':
@@ -157,16 +233,22 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ./models/payee.v1.yaml
+                $ref: ./models/payee-bank-account.v1.yaml
       description: 查询收款人信息
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
-              $ref: ./models/query-payee-request.v1.yaml
+              type: object
+              properties:
+                extAccountId:
+                  type: string
+                  description: 外部单号
+              required:
+                - extAccountId
         description: ''
     delete:
-      summary: DELETE payee
+      summary: DELETE payee bank account
       operationId: delete-payees
       responses:
         '200':
@@ -174,15 +256,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ./models/payee.v1.yaml
+                $ref: ./models/payee-bank-account.v1.yaml
       description: 删除收款人
-    parameters:
-      - schema:
-          type: string
-        name: payee_id
-        in: path
-        required: true
-  /pays:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                extAccountId:
+                  type: string
+                  description: 外部单号
+    parameters: []
+  /batch-payments:
     get:
       summary: GET pays
       tags: []
@@ -192,14 +278,20 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ./models/payment.v1.yaml
+                $ref: ./models/batch-pay.v1.yaml
       operationId: get-pays
       description: 付款记录查询
       requestBody:
         content:
           application/json:
             schema:
-              $ref: ./models/query-payment-request.v1.yaml
+              type: object
+              properties:
+                extBatchId:
+                  type: string
+                  description: 批次号
+              required:
+                - extBatchId
     post:
       summary: POST create a payment
       operationId: post-pays
@@ -209,13 +301,83 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ./models/payment.v1.yaml
+                $ref: ./models/batch-pay.v1.yaml
       description: 创建付款指令
       requestBody:
         content:
           application/json:
             schema:
-              $ref: ./models/create-payment-request.v1.yaml
+              type: object
+              properties:
+                extBatchId:
+                  type: string
+                  description: 外部批次号
+                list:
+                  type:
+                    - array
+                  description: 请求对象
+                  items:
+                    type: object
+                    properties:
+                      tradeCode:
+                        type: string
+                        description: 贸易编码
+                      payeeBankAccountNumber:
+                        type: string
+                        description: 收款人银行卡号，用于校验
+                      extPaymentId:
+                        type: string
+                        description: 外部唯一单号
+                      sourceCurrency:
+                        type: string
+                        description: 源币种
+                      targetCurrency:
+                        type: string
+                        description: 目标币种
+                      targetAmount:
+                        type: string
+                        description: 目标金额
+                      tradeDate:
+                        type: string
+                        default: yyyy-MM-dd
+                        description: 交易时间
+                        format: date
+                      goodsName:
+                        type: string
+                        description: 商品名称
+                      goodsNumber:
+                        type: string
+                        description: 商品数量
+                      goodsPrice:
+                        type: string
+                        description: 商品单价
+                      logistics:
+                        type: string
+                        description: 物流方式
+                      procurementYype:
+                        type: string
+                        description: 采购类型
+                      payeeBankAccountId:
+                        type: string
+                        description: 收款人编号
+                    required:
+                      - tradeCode
+                      - payeeBankAccountNumber
+                      - extPaymentId
+                      - sourceCurrency
+                      - targetCurrency
+                      - targetAmount
+                      - tradeDate
+                      - goodsName
+                      - goodsNumber
+                      - goodsPrice
+                      - logistics
+                      - procurementYype
+                      - payeeBankAccountId
+              required:
+                - extBatchId
+        description: ''
+    parameters: []
   /verification-codes:
     post:
       summary: POST verification codes
@@ -238,6 +400,68 @@ paths:
                 type:
                   type: string
                   description: 'SUPPLIER_PAYMENT("供应商付款")'
+  '/batch-pays/{extBatchId}/payments':
+    parameters:
+      - schema:
+          type: string
+        name: extBatchId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./models/payment.v1.yaml
+      operationId: get-batch-pays-extBatchId
+      description: 批次详情
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                extPaymentId:
+                  type: string
+                  description: 外部付款id
+                page:
+                  type: object
+                  required:
+                    - pageSize
+                    - pageNum
+                  properties:
+                    pageSize:
+                      type: integer
+                      description: 分页大小
+                    pageNum:
+                      type: integer
+                      description: 页码
+              required:
+                - page
+  /payee-document:
+    put:
+      summary: PUT payee account document
+      operationId: put-payee-document
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                extAccountId:
+                  type: string
+                  description: 外部收款人银行账户id
+                attatchmentId:
+                  type: string
+                  description: 附件id
+      description: 更新材料信息
 components:
   schemas: {}
   securitySchemes:

@@ -1,5 +1,6 @@
 title: card
 type: object
+description: 国际虚拟卡
 properties:
   id:
     type: string
@@ -9,16 +10,15 @@ properties:
   address:
     type: string
     description: 银行卡地址
-  account_name:
+  accountName:
     type: string
     description: 账户名
-  card_no:
+  cardNo:
     type: string
     description: 卡号
-  sort_code:
+  routingNumber:
     type: string
     description: 9位路线号
   swift:
     type: string
     description: SWIFT code
-description: 国际虚拟卡

@@ -1,0 +1,37 @@
+title: bach-pay
+type: object
+properties:
+  createTime:
+    type: string
+    description: 创建时间
+  extBatchId:
+    type: string
+    description: 批次号
+  count:
+    type: string
+    description: 总数
+  sourceCurrency:
+    type: string
+    description: 目标币种
+  sourceAmount:
+    type: string
+    description: 目标金额
+  targetCurrency:
+    type: string
+    description: 目标币种
+  targetAmount:
+    type: string
+    description: 目标金额
+  status:
+    type: string
+    description: 付款状态
+  payingCount:
+    type: string
+    description: 付款中
+  paiedCount:
+    type: string
+    description: 已付款
+  failedCount:
+    type: string
+    description: 失败笔数
+description: 批次付款object
