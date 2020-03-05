@@ -408,7 +408,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: GET payments
       tags: []
       responses:
         '200':
