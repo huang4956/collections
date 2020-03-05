@@ -228,7 +228,7 @@ paths:
               schema:
                 type: object
                 properties: {}
-      description: ''
+      description: 发送短信验证码
       requestBody:
         content:
           application/json:
