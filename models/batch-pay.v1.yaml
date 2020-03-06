@@ -1,5 +1,6 @@
 title: bach-pay
 type: object
+description: 批次付款object
 properties:
   createTime:
     type: string
@@ -12,19 +13,16 @@ properties:
     description: 总数
   sourceCurrency:
     type: string
-    description: 目标币种
+    description: 源币种
   sourceAmount:
     type: string
-    description: 目标金额
+    description: 源金额
   targetCurrency:
     type: string
     description: 目标币种
   targetAmount:
     type: string
     description: 目标金额
-  status:
-    type: string
-    description: 付款状态
   payingCount:
     type: string
     description: 付款中
@@ -34,4 +32,3 @@ properties:
   failedCount:
     type: string
     description: 失败笔数
-description: 批次付款object

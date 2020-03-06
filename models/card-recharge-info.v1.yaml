@@ -2,8 +2,9 @@ title: card-recharge-info
 type: object
 description: 虚拟卡充值记录
 properties:
-  id:
+  bankTransferId:
     type: string
+    description: 银行转账ID
   accountName:
     type: string
     description: 账户名称
@@ -22,9 +23,9 @@ properties:
   currency:
     type: string
     description: 币种
-  memo:
+  rfb:
     type: string
-    description: 备注信息
+    description: 银行附言
   createTime:
     type: string
     description: 创建时间

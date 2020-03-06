@@ -1,9 +1,6 @@
 title: payment
 type: object
 properties:
-  id:
-    type: string
-    description: ''
   sourceCurrency:
     type: string
     description: 源币种
@@ -34,9 +31,6 @@ properties:
   procurementType:
     type: string
     description: 采购类型
-  attachmentId:
-    type: string
-    description: 附件id
   createTime:
     type: string
     description: 付款单创建时间
@@ -46,10 +40,10 @@ properties:
   failedReson:
     type: string
     description: 失败原因
-  exchangeRate:
+  rate:
     type: string
     description: 汇率
-  exhcangeRateTime:
+  rateTime:
     type: string
     description: 汇率时间
   commissionReceivable:
@@ -58,12 +52,9 @@ properties:
   commissionReceived:
     type: string
     description: 实收手续费
-  paiedTime:
-    type: string
-    description: 付款时间
-  payeeId:
+  payeeBankAccountId:
     type: string
     description: 收款人id
-  extPaymentId:
+  paymentId:
     type: string
     description: 外部流水号
