@@ -102,7 +102,7 @@ paths:
           in: query
           name: currency
     parameters: []
-  /payee-bank-account:
+  /payee-bank-accounts:
     post:
       summary: POST create payee bank account
       operationId: post-payees
@@ -233,19 +233,8 @@ paths:
     delete:
       summary: DELETE payee bank account
       operationId: delete-payees
-      responses:
-        '200':
-          description: OK
       description: 删除收款人
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                payeeBankAccountId:
-                  type: string
-                  description: 外部单号
+      requestBody: {}
       parameters:
         - schema:
             type: string
