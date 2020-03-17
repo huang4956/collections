@@ -4,10 +4,10 @@ info:
   version: '1.0'
   description: 供应商付款api
 servers:
-  - url: 'https://api.sandbox.lianlianglobal.com/supplier/v1'
+  - url: 'https://global-api-sandbox.lianlianpay-inc.com/supplier/v1'
     description: Sandbox
   - description: Production
-    url: 'https://api.lianlianglobal.com/supplier/v1'
+    url: 'https://global-api.lianlianglobal.com/supplier/v1'
 paths:
   /cards:
     get:
