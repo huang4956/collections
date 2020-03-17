@@ -97,10 +97,6 @@ paths:
           name: pageNumber
           description: 页码
           required: true
-        - schema:
-            type: string
-          in: query
-          name: currency
     parameters: []
   /payee-bank-accounts:
     post:
@@ -261,7 +257,7 @@ paths:
         - schema:
             type: string
           in: query
-          name: extBatchId
+          name: batchId
           required: true
     post:
       summary: POST create batch payment
@@ -280,7 +276,7 @@ paths:
             schema:
               type: object
               properties:
-                extBatchId:
+                batchId:
                   type: string
                   description: 外部批次号
                 list:
@@ -349,7 +345,7 @@ paths:
                   type: string
                   description: 短信验证码
               required:
-                - extBatchId
+                - batchId
         description: ''
     parameters: []
   /verification-codes:
@@ -369,11 +365,11 @@ paths:
                 type:
                   type: string
                   description: 'SUPPLIER_PAYMENT("供应商付款")'
-  '/batch-payments/{extBatchId}/payments':
+  '/batch-payments/{batchId}/payments':
     parameters:
       - schema:
           type: string
-        name: extBatchId
+        name: batchId
         in: path
         required: true
     get:
