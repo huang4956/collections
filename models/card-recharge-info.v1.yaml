@@ -11,9 +11,6 @@ properties:
   accountNumber:
     type: string
     description: 账户号
-  type:
-    type: string
-    description: 交易类型
   status:
     type: string
     description: 交易状态，只有交易成功
