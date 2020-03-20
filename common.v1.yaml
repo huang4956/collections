@@ -1,0 +1,40 @@
+openapi: 3.0.0
+info:
+  title: common
+  version: '1.0'
+  description: 通用api
+servers:
+  - url: 'https://global-api-sandbox.lianlianpay-inc.com/common/v1'
+  - url: 'https://global-api.lianlianglobal.com/common/v1'
+    description: ''
+paths:
+  /verification-codes:
+    post:
+      summary: 获取短信验证码
+      operationId: post-verification-codes
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  $ref: ./models/verification-code-enum.v1.yaml
+      description: ''
+      tags:
+        - 通用
+components:
+  schemas: {}
+  securitySchemes:
+    Authorization:
+      name: Developer Token
+      type: apiKey
+      in: header

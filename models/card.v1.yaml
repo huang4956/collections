@@ -1,6 +1,6 @@
-title: card
+title: 充值卡对象
 type: object
-description: 国际虚拟卡
+description: 国际充值卡
 properties:
   id:
     type: string
@@ -19,6 +19,6 @@ properties:
   routingNumber:
     type: string
     description: 9位路线号
-  swift:
+  swiftCode:
     type: string
     description: SWIFT code

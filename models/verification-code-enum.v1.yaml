@@ -1,13 +1,11 @@
 type: string
-title: Verification-Code-Enum
+title: 校验码枚举
 enum:
   - WITHDRAW_COMBINE
   - SUPPLIER_PAYMENT
 example: WITHDRAW_COMBINE
 description: |-
-  State a Payment is in.  One of:
-
   | Value | Description |
   |--------|------------|
-  | WITHDRAW_COMBINE| Withdraw verification code |
-  | SUPPLIER_PAYMENT | Supplier payment verification code |
+  | WITHDRAW_COMBINE| 提现校验码 |
+  | SUPPLIER_PAYMENT | 供应商付款校验码 |

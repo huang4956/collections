@@ -1,4 +1,4 @@
-title: attachment
+title: 附件对象
 type: object
 properties:
   id:
@@ -15,3 +15,5 @@ properties:
     format: date-time
     description: 'Document create time, UTC+0 timestamp'
 description: 附件接口
+x-tags:
+  - 通用

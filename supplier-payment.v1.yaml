@@ -11,7 +11,7 @@ servers:
 paths:
   /cards:
     get:
-      summary: GET cards
+      summary: 获取充值卡信息
       operationId: get-cards
       responses:
         '200':
@@ -29,10 +29,11 @@ paths:
           in: query
           name: currency
           required: true
+      tags:
+        - 卡
   /card-recharges:
     get:
-      summary: GET card recharges
-      tags: []
+      summary: 查询虚拟卡充值记录
       responses:
         '200':
           description: OK
@@ -97,10 +98,12 @@ paths:
           name: pageNumber
           description: 页码
           required: true
+      tags:
+        - 卡
     parameters: []
   /payee-bank-accounts:
     post:
-      summary: POST create payee bank account
+      summary: 创建收款人银行卡信息
       operationId: post-payees
       responses:
         '200':
@@ -116,98 +119,53 @@ paths:
             schema:
               type: object
               properties:
-                attachementId:
+                payeeBankAccountId:
                   type: string
-                  description: 附件id
-                payeeInfo:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                      description: 姓名
-                    certType:
-                      type: string
-                      description: 证件类型
-                    certNo:
-                      type: string
-                      description: 证件号码
-                    type:
-                      type: string
-                      description: 收款人类型：公司、个人
-                  required:
-                    - name
-                routingNumber:
+                  description: 外部收款人银行卡账户编号
+                  maxLength: 32
+                attachmentId:
                   type: string
-                  description: 银行所在地为美国时必填
-                sortCode:
+                  description: 附件编号
+                  maxLength: 32
+                accountType:
                   type: string
-                  description: '银行分类号码:银行所在地为英国时必填'
-                swiftCode:
-                  type: string
-                  description: 银行所在地为非大陆时必填
-                cardType:
-                  type: string
-                  description: "    DEBIT(0, \"借记卡\"),\n    CREDIT(1, \"信用卡\"),\n    CORPORATE(2, \"对公银行卡\");"
-                userType:
-                  type: string
-                  description: "    INDIVIDUAL(\"个人\", \"0\"),\n    ENTERPRISE(\"企业\", \"1\");"
+                  enum:
+                    - ENTERPRISE
+                    - INDIVIDUAL
+                  description: |-
+                    银行卡账户绑定类型：
+                       ENTERPRISE: 对公类型
+                       INDIVIDUAL: 对私类型
                 region:
                   type: string
-                  description: "    CN(\"CN\", \"中国大陆\"),\n    US(\"US\", \"美国\"),\n    FR(\"FR\", \"法国\"),\n    DE(\"DE\", \"德国\"),\n    IT(\"IT\", \"意大利\"),\n    ES(\"ES\", \"西班牙\"),\n    GB(\"GB\", \"英国\"),\n    HK(\"HK\", \"中国香港\");"
-                code:
-                  type: string
-                  description: 银行编号
-                name:
-                  type: string
-                  description: 银行名称
-                branchName:
-                  type: string
-                  description: 支行名称
-                address:
-                  type: string
-                  description: 银行地址
-                prcptcd:
-                  type: string
-                  description: 大额行号
-                province:
-                  type: string
-                  description: 银行省份
-                city:
-                  type: string
-                  description: 银行城市
-                bindType:
-                  type: string
-                  description: 对公、对私
-                cardNumber:
-                  type: string
-                  description: 银行卡号
-                accountPhone:
-                  type: string
-                  description: 关联手机号
-                accountName:
-                  type: string
-                  description: 账户名称
-                currencys:
-                  type: array
-                  description: 币种
-                  items: {}
-                extAccountId:
-                  type: string
-                  description: 外部单号
+                  description: "    CN(\"CN\", \"中国大陆\"),\n    US(\"US\", \"美国\"),\n    FR(\"FR\", \"法国\"),\n    DE(\"DE\", \"德国\"),\n    IT(\"IT\", \"意大利\"),\n    ES(\"ES\", \"西班牙\"),\n    GB(\"GB\", \"英国\"),\n    HK(\"HK\", \"中国香港\")"
+                  enum:
+                    - CN
+                    - US
+                    - FR
+                    - DE
+                    - IT
+                    - ES
+                    - GB
+                    - HK
+                  minLength: 2
+                  maxLength: 2
+                cnyBankInfo:
+                  $ref: ./models/CNY-bank-info.v1.yaml
+                foreignBankInfo:
+                  $ref: ./models/foreign-bank-info.v1.yaml
               required:
-                - cardType
-                - userType
+                - payeeBankAccountId
+                - attachmentId
+                - accountType
                 - region
-                - name
-                - address
-                - bindType
-                - cardNumber
-                - accountPhone
-                - accountName
-                - currencys
-                - extAccountId
+                - cnyBankInfo
+                - foreignBankInfo
+        description: ''
+      tags:
+        - 收款人
     get:
-      summary: GET payees bank account
+      summary: 查询收款人银行卡信息
       operationId: get-payees
       responses:
         '200':
@@ -226,8 +184,10 @@ paths:
           name: payeeBankAccountId
           required: true
           description: 收款人银行卡账户号
+      tags:
+        - 收款人
     delete:
-      summary: DELETE payee bank account
+      summary: 删除收款人银行卡信息
       operationId: delete-payees
       description: 删除收款人
       requestBody: {}
@@ -238,11 +198,12 @@ paths:
           name: payeeBankAccountId
           required: true
           description: 收款人银行卡账户号
+      tags:
+        - 收款人
     parameters: []
   /batch-payments:
     get:
-      summary: GET batch payments
-      tags: []
+      summary: 获取批量付款结果
       responses:
         '200':
           description: OK
@@ -259,8 +220,10 @@ paths:
           in: query
           name: batchId
           required: true
+      tags:
+        - 付款
     post:
-      summary: POST create batch payment
+      summary: 发送批量付款请求
       operationId: post-pays
       responses:
         '200':
@@ -279,92 +242,73 @@ paths:
                 batchId:
                   type: string
                   description: 外部批次号
-                list:
-                  type:
-                    - array
-                  description: 请求对象
-                  items:
-                    type: object
-                    properties:
-                      tradeCode:
-                        type: string
-                        description: 贸易编码
-                      payeeBankAccountNumber:
-                        type: string
-                        description: 收款人银行卡号，用于校验
-                      paymentId:
-                        type: string
-                        description: 外部唯一单号
-                      sourceCurrency:
-                        type: string
-                        description: 源币种
-                      targetCurrency:
-                        type: string
-                        description: 目标币种
-                      targetAmount:
-                        type: string
-                        description: 目标金额
-                      tradeDate:
-                        type: string
-                        default: yyyy-MM-dd
-                        description: 交易时间
-                        format: date
-                      goodsName:
-                        type: string
-                        description: 商品名称
-                      goodsNumber:
-                        type: string
-                        description: 商品数量
-                      goodsPrice:
-                        type: string
-                        description: 商品单价
-                      logistics:
-                        type: string
-                        description: 物流方式
-                      procurementYype:
-                        type: string
-                        description: 采购类型
-                      payeeBankAccountId:
-                        type: string
-                        description: 收款人编号
-                    required:
-                      - tradeCode
-                      - payeeBankAccountNumber
-                      - paymentId
-                      - sourceCurrency
-                      - targetCurrency
-                      - targetAmount
-                      - tradeDate
-                      - goodsName
-                      - goodsNumber
-                      - goodsPrice
-                      - logistics
-                      - procurementYype
-                      - payeeBankAccountId
                 verificationCode:
                   type: string
                   description: 短信验证码
+                list:
+                  type: object
+                  properties:
+                    tradeCode:
+                      type: string
+                      description: 贸易编码
+                    payeeBankAccountNumber:
+                      type: string
+                      description: 收款人银行卡号，用于校验
+                    paymentId:
+                      type: string
+                      description: 外部唯一单号
+                    sourceCurrency:
+                      type: string
+                      description: 源币种
+                    targetCurrency:
+                      type: string
+                      description: 目标币种
+                    targetAmount:
+                      type: string
+                      description: 目标金额
+                    tradeDate:
+                      type: string
+                      default: yyyy-MM-dd
+                      description: 交易时间
+                      format: date
+                    goodsName:
+                      type: string
+                      description: 商品名称
+                    goodsNumber:
+                      type: string
+                      description: 商品数量
+                    goodsPrice:
+                      type: string
+                      description: 商品单价
+                    logistics:
+                      type: string
+                      description: 物流方式
+                    procurementYype:
+                      type: string
+                      description: 采购类型
+                    payeeBankAccountId:
+                      type: string
+                      description: 收款人编号
+                  required:
+                    - tradeCode
+                    - payeeBankAccountNumber
+                    - paymentId
+                    - sourceCurrency
+                    - targetCurrency
+                    - targetAmount
+                    - tradeDate
+                    - goodsName
+                    - goodsNumber
+                    - goodsPrice
+                    - logistics
+                    - procurementYype
+                    - payeeBankAccountId                    
               required:
                 - batchId
         description: ''
+      tags:
+        - 付款
     parameters: []
-  /verification-codes:
-    post:
-      summary: POST verification codes
-      operationId: post-verification-codes
-      responses:
-        '200':
-          description: OK
-      description: 发送短信验证码
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                type:
-                  type: string
-                  description: 'SUPPLIER_PAYMENT("供应商付款")'
   '/batch-payments/{batchId}/payments':
     parameters:
       - schema:
@@ -373,8 +317,7 @@ paths:
         in: path
         required: true
     get:
-      summary: GET payments
-      tags: []
+      summary: 获取批量付款明细
       responses:
         '200':
           description: OK
@@ -414,9 +357,11 @@ paths:
           name: pageNum
           required: true
           description: 页码
+      tags:
+        - 付款
   /payee-document:
     put:
-      summary: PUT payee account document
+      summary: 根据收款人银行卡材料信息
       operationId: put-payee-document
       responses:
         '200':
@@ -435,10 +380,12 @@ paths:
                   description: 附件id
         description: ''
       description: 更新材料信息
+      tags:
+        - 收款人
 components:
   schemas: {}
   securitySchemes:
     Authorization:
       name: Developer Token
       type: apiKey
-      in: query
+      in: header

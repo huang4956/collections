@@ -1,5 +1,6 @@
-title: payment
+title: 付款指令对象
 type: object
+description: 付款指令信息
 properties:
   sourceCurrency:
     type: string
@@ -36,7 +37,15 @@ properties:
     description: 付款单创建时间
   status:
     type: string
-    description: 付款单状态
+    description: "    ON_GOING(\"付款中\"),\n    SUCCESS(\"付款成功\"),\n    FAILED(\"付款失败\"),\n    REFUNDING(\"退款中\"),\n    REFUNDED(\"已退款\"),\n    CANCELED(\"已撤销\"),\n    EXTERNAL_CHECKING(\"等待外部审核\")"
+    enum:
+      - ON_GOING
+      - SUCCESS
+      - FAILED
+      - REFUNDING
+      - REFUNDED
+      - CANCELED
+      - EXTERNAL_CHECKIGN
   failedReson:
     type: string
     description: 失败原因

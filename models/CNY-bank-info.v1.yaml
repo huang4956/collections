@@ -1,0 +1,50 @@
+title: 人民币银行卡信息对象
+type: object
+properties:
+  accountName:
+    type: string
+    description: 账户名称
+    maxLength: 32
+  bankName:
+    type: string
+    description: 银行名称
+    maxLength: 64
+  provinceCode:
+    type: string
+    description: 省份编码
+    maxLength: 32
+  cityCode:
+    type: string
+    description: 市编码
+    maxLength: 32
+  branchBankName:
+    type: string
+    description: 支行名称
+    maxLength: 32
+  prcptcd:
+    type: string
+    description: 大额行号
+    maxLength: 32
+  certNo:
+    type: string
+    maxLength: 18
+    description: '证件号码:对公时为企业信用代码；对私为个人身份证号码'
+  cardNumber:
+    type: string
+    description: 银行卡号
+    maxLength: 32
+  accountPhone:
+    type: string
+    description: 银行卡关联手机号
+    maxLength: 12
+required:
+  - accountName
+  - bankName
+  - provinceCode
+  - cityCode
+  - branchBankName
+  - prcptcd
+  - certNo
+  - cardNumber
+  - accountPhone
+description: 人民币银行卡信息
