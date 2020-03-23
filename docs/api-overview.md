@@ -148,7 +148,7 @@ LLPAY-Signature:t=1574130398,v=b0VbG4uGA69gR4T1FFc7NzqbiBoDEOBvkQtJXytQd7dY+WDo0
 
     {"code":"999995","message":"[holderType] is invalid"}
 
-### HTTP STATUS CODE SUMMARY
+### HTTP状态码一览表
 
 | CODE               | DESCRIPTION                |
 | ------------------ | -------------------------- |
