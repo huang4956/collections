@@ -1,6 +1,8 @@
 title: 批量付款对象
 type: object
 description: 批次付款object
+x-tags:
+  - 通用
 properties:
   createTime:
     type: string
@@ -32,5 +34,3 @@ properties:
   failedCount:
     type: string
     description: 失败笔数
-x-tags:
-  - 通用

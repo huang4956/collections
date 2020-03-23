@@ -112,7 +112,10 @@ paths:
             application/json:
               schema:
                 $ref: ./models/payee-bank-account.v1.yaml
-      description: 创建收款人
+      description: |-
+        创建收款人银行卡信息：
+          创建收款人银行卡信息分为两种：1、创建国内CNY（人民币）银行卡，这时候你需要传cnyBankInfo必传
+                                      2、创建外币银行卡，这时候foreignBankInfo必传
       requestBody:
         content:
           application/json:
@@ -189,7 +192,7 @@ paths:
     delete:
       summary: 删除收款人银行卡信息
       operationId: delete-payees
-      description: 删除收款人
+      description: 根据收款人银行卡id删除收款人银行卡信息
       requestBody: {}
       parameters:
         - schema:
@@ -212,7 +215,7 @@ paths:
               schema:
                 $ref: ./models/batch-pay.v1.yaml
       operationId: get-pays
-      description: 付款记录查询
+      description: 查询批量付款结果信息
       requestBody: {}
       parameters:
         - schema:
@@ -220,10 +223,11 @@ paths:
           in: query
           name: batchId
           required: true
+          description: 批量付款批次号
       tags:
         - 付款
     post:
-      summary: 发送批量付款请求
+      summary: 创建批量付款请求
       operationId: post-pays
       responses:
         '200':
@@ -333,7 +337,7 @@ paths:
                     items:
                       $ref: ./models/payment.v1.yaml
       operationId: get-batch-pays-extBatchId
-      description: 批次详情
+      description: 获取批量付款明细
       requestBody:
         description: ''
       parameters:
@@ -379,7 +383,7 @@ paths:
                   type: string
                   description: 附件id
         description: ''
-      description: 更新材料信息
+      description: 更新材料信息，更新材料信息后用户材料状态变成待审核状态，审核成功之后即可使用
       tags:
         - 收款人
 components:

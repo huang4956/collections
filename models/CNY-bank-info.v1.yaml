@@ -47,4 +47,4 @@ required:
   - certNo
   - cardNumber
   - accountPhone
-description: 人民币银行卡信息
+description: 人民币银行卡信息，创建国内CNY（人民币）银行卡信息时必传

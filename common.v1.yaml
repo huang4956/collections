@@ -29,7 +29,7 @@ paths:
               properties:
                 type:
                   $ref: ./models/verification-code-enum.v1.yaml
-      description: ''
+      description: 获取短信校验码，用于相关接口做二次验证，例如：提现、供应商付款等
       tags:
         - 通用
   '/districts/{code}':
@@ -41,7 +41,8 @@ paths:
         required: true
     get:
       summary: 获取省市区编码
-      tags: []
+      tags:
+        - 通用
       responses:
         '200':
           description: OK
@@ -52,9 +53,89 @@ paths:
                 items:
                   $ref: ./models/district.v1.yaml
       operationId: get-district-code
-      description: ''
+      description: 获取省市区编码字典信息，例如用于创建收款人银行卡信息时需要提供开户行地址信息
+  /banks:
+    get:
+      summary: 查询银行信息
+      tags:
+        - 通用
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: 总条数
+                  list:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/bank-info'
+                required:
+                  - total
+                  - list
+      operationId: get-banks
+      description: 查询银行信息字典接口，例如收款人银行卡创建的时候需要收集国内银行相关信息
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: bankName
+          description: 银行名称，用于模糊查询银行列表
+        - schema:
+            type: integer
+            maximum: 100
+          in: query
+          name: pageNum
+          required: true
+          description: 分页页码
+        - schema:
+            type: integer
+            maxLength: 100
+          in: query
+          name: pageSize
+          description: 分页大小
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                total:
+                  type: integer
+                  description: 总大小
+                list:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/bank-info'
+              required:
+                - total
+            examples: {}
 components:
-  schemas: {}
+  schemas:
+    bank-info:
+      title: 银行信息
+      type: object
+      description: 国内各银行信息
+      properties:
+        id:
+          type: string
+          description: 银行信息键值
+        name:
+          type: string
+          description: 银行名称，例如：中国银行
+        branchName:
+          type: string
+          description: 支行名称
+        prcptcd:
+          type: string
+          description: 大额行号
+      x-tags:
+        - Models
   securitySchemes:
     Authorization:
       type: oauth2
