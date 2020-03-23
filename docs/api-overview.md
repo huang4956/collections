@@ -42,7 +42,9 @@ tags: [全局描述]
 
 <!---->
 
-    `LLPAY-Signature:t=&lt;&lt;epoch&gt;&gt;,v=&lt;&lt;signature&gt;&gt;`
+   
+    LLPAY-Signature:t=&lt;&lt;epoch&gt;&gt;,v=&lt;&lt;signature&gt;&gt;
+   
 
 **第一步:** 确定签名`payload`
 
