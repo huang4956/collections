@@ -1,12 +1,13 @@
 openapi: 3.0.0
 info:
-  title: common
+  title: 通用API
   version: '1.0'
   description: 通用api
 servers:
   - url: 'https://global-api-sandbox.lianlianpay-inc.com/common/v1'
+    description: 沙盒环境地址
   - url: 'https://global-api.lianlianglobal.com/common/v1'
-    description: ''
+    description: 生产环境地址
 paths:
   /verification-codes:
     post:
@@ -31,10 +32,40 @@ paths:
       description: ''
       tags:
         - 通用
+  '/districts/{code}':
+    parameters:
+      - schema:
+          type: string
+        name: code
+        in: path
+        required: true
+    get:
+      summary: 获取省市区编码
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: ./models/district.v1.yaml
+      operationId: get-district-code
+      description: ''
 components:
   schemas: {}
   securitySchemes:
     Authorization:
-      name: Developer Token
-      type: apiKey
-      in: header
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: ''
+          refreshUrl: ''
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: ''
+          tokenUrl: ''
+          refreshUrl: ''
+          scopes: {}
+      description: '本接口中使用Basic Auth认证：(Authorization: Basic &lt;&lt;Basic64.encode(developerId:token)&gt;&gt;)'

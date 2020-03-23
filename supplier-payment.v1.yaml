@@ -1,12 +1,12 @@
 openapi: 3.0.0
 info:
-  title: supplier-payment
+  title: 供应商付款API
   version: '1.0'
   description: 供应商付款api
 servers:
   - url: 'https://global-api-sandbox.lianlianpay-inc.com/supplier/v1'
-    description: Sandbox
-  - description: Production
+    description: 沙盒环境地址
+  - description: 生产环境地址
     url: 'https://global-api.lianlianglobal.com/supplier/v1'
 paths:
   /cards:
@@ -302,7 +302,7 @@ paths:
                     - goodsPrice
                     - logistics
                     - procurementYype
-                    - payeeBankAccountId                    
+                    - payeeBankAccountId
               required:
                 - batchId
         description: ''
@@ -386,6 +386,15 @@ components:
   schemas: {}
   securitySchemes:
     Authorization:
-      name: Developer Token
-      type: apiKey
-      in: header
+      type: oauth2
+      description: '本接口中使用Basic Auth认证：(Authorization: Basic &lt;&lt;Basic64.encode(developerId:token)&gt;&gt;)'
+      flows:
+        clientCredentials:
+          tokenUrl: ''
+          refreshUrl: ''
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: ''
+          tokenUrl: ''
+          refreshUrl: ''
+          scopes: {}
