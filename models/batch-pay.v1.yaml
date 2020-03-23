@@ -12,7 +12,7 @@ properties:
     description: 批次号
   count:
     type: string
-    description: 总数
+    description: 批次请求总数
   sourceCurrency:
     type: string
     description: 源币种

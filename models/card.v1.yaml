@@ -2,8 +2,6 @@ title: 充值卡对象
 type: object
 description: 国际充值卡
 properties:
-  id:
-    type: string
   currency:
     type: string
     description: 币种
@@ -13,7 +11,7 @@ properties:
   accountName:
     type: string
     description: 账户名
-  cardNo:
+  accountNumber:
     type: string
     description: 卡号
   routingNumber:

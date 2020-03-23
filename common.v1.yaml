@@ -87,14 +87,14 @@ paths:
           description: 银行名称，用于模糊查询银行列表
         - schema:
             type: integer
-            maximum: 100
+            maximum: 20
           in: query
           name: pageNum
           required: true
           description: 分页页码
         - schema:
             type: integer
-            maxLength: 100
+            maximum: 30
           in: query
           name: pageSize
           description: 分页大小

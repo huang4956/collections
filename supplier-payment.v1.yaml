@@ -11,7 +11,7 @@ servers:
 paths:
   /cards:
     get:
-      summary: 获取充值卡信息
+      summary: 查询多比充值账号信息
       operationId: get-cards
       responses:
         '200':
@@ -33,7 +33,7 @@ paths:
         - 卡
   /card-recharges:
     get:
-      summary: 查询虚拟卡充值记录
+      summary: 查询银行转入记录
       responses:
         '200':
           description: OK
@@ -79,8 +79,9 @@ paths:
         - schema:
             type: string
           in: query
-          name: cardNo
+          name: accountNumber
           description: 卡号
+          required: true
         - schema:
             type: integer
             minimum: 1
@@ -108,10 +109,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: ./models/payee-bank-account.v1.yaml
       description: |-
         创建收款人银行卡信息：
           创建收款人银行卡信息分为两种：1、创建国内CNY（人民币）银行卡，这时候你需要传cnyBankInfo必传
@@ -141,7 +138,7 @@ paths:
                        INDIVIDUAL: 对私类型
                 region:
                   type: string
-                  description: "    CN(\"CN\", \"中国大陆\"),\n    US(\"US\", \"美国\"),\n    FR(\"FR\", \"法国\"),\n    DE(\"DE\", \"德国\"),\n    IT(\"IT\", \"意大利\"),\n    ES(\"ES\", \"西班牙\"),\n    GB(\"GB\", \"英国\"),\n    HK(\"HK\", \"中国香港\")"
+                  description: "    CN(\"CN\", \"中国大陆\"),\n    US(\"US\", \"美国\"),\n    FR(\"FR\", \"法国\"),\n    DE(\"DE\", \"德国\"),\n    IT(\"IT\", \"意大利\"),\n    ES(\"ES\", \"西班牙\"),\n    GB(\"GB\", \"英国\"),\n    HK(\"HK\", \"中国香港\"),\n    AU(\"AU\", \"澳大利亚\"),\n    TW(\"TW\", \"中国台湾\"),\n    KR(\"KR\", \"韩国\"),\n    JP(\"JP\", \"日本\")"
                   enum:
                     - CN
                     - US
@@ -232,10 +229,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: ./models/batch-pay.v1.yaml
       description: 创建付款指令
       requestBody:
         content:
@@ -249,27 +242,27 @@ paths:
                 verificationCode:
                   type: string
                   description: 短信验证码
+                sourceCurrency:
+                  type: string
+                  description: 源币种
+                targetCurrency:
+                  type: string
+                  description: 目标币种
                 list:
                   type: object
                   properties:
                     tradeCode:
                       type: string
-                      description: 贸易编码
+                      description: "    电商销售/货物贸易\n    物流费"
+                    payeeBankAccountId:
+                      type: string
+                      description: 收款人编号
                     payeeBankAccountNumber:
                       type: string
                       description: 收款人银行卡号，用于校验
                     paymentId:
                       type: string
                       description: 外部唯一单号
-                    sourceCurrency:
-                      type: string
-                      description: 源币种
-                    targetCurrency:
-                      type: string
-                      description: 目标币种
-                    targetAmount:
-                      type: string
-                      description: 目标金额
                     tradeDate:
                       type: string
                       default: yyyy-MM-dd
@@ -286,29 +279,28 @@ paths:
                       description: 商品单价
                     logistics:
                       type: string
-                      description: 物流方式
-                    procurementYype:
+                      description: "    快递\n    当面采购\n    物流"
+                    procurementType:
                       type: string
-                      description: 采购类型
-                    payeeBankAccountId:
+                      description: "    网络采购\n    线下有票(增值税发票)\n    线下无票(无增值税发票)"
+                    tragetAmount:
                       type: string
-                      description: 收款人编号
+                      description: 目标金额
                   required:
                     - tradeCode
+                    - payeeBankAccountId
                     - payeeBankAccountNumber
                     - paymentId
-                    - sourceCurrency
-                    - targetCurrency
-                    - targetAmount
                     - tradeDate
                     - goodsName
                     - goodsNumber
                     - goodsPrice
                     - logistics
-                    - procurementYype
-                    - payeeBankAccountId
+                    - procurementType
               required:
                 - batchId
+                - sourceCurrency
+                - targetCurrency
         description: ''
       tags:
         - 付款
@@ -365,7 +357,7 @@ paths:
         - 付款
   /payee-document:
     put:
-      summary: 根据收款人银行卡材料信息
+      summary: 更新收款人材料信息
       operationId: put-payee-document
       responses:
         '200':

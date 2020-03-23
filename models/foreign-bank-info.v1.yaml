@@ -10,7 +10,7 @@ properties:
     type: string
     description: 银行名称
     maxLength: 32
-  cardNumber:
+  accountNumber:
     type: string
     description: "卡号（不能以-:/开头   'DE','FR','ES','IT' 有IBAN 校验）"
     maxLength: 32
@@ -32,6 +32,6 @@ properties:
 required:
   - accountName
   - bankName
-  - cardNumber
+  - accountNumber
   - swiftCode
   - bankAddress

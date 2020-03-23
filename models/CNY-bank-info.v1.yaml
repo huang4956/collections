@@ -1,13 +1,14 @@
 title: 人民币银行卡信息对象
 type: object
+description: 人民币银行卡信息，创建国内CNY（人民币）银行卡信息时必传
 properties:
   accountName:
     type: string
     description: 账户名称
     maxLength: 32
-  bankName:
+  bankCode:
     type: string
-    description: 银行名称
+    description: 银行编码
     maxLength: 64
   provinceCode:
     type: string
@@ -21,30 +22,24 @@ properties:
     type: string
     description: 支行名称
     maxLength: 32
-  prcptcd:
-    type: string
-    description: 大额行号
-    maxLength: 32
   certNo:
     type: string
     maxLength: 18
-    description: '证件号码:对公时为企业信用代码；对私为个人身份证号码'
-  cardNumber:
+    description: '收款人证件号码:对公时为企业信用代码；对私为个人身份证号码'
+  accountNumber:
     type: string
     description: 银行卡号
     maxLength: 32
-  accountPhone:
+  contactPhone:
     type: string
-    description: 银行卡关联手机号
+    description: 收款人联系电话
     maxLength: 12
 required:
   - accountName
-  - bankName
+  - bankCode
   - provinceCode
   - cityCode
   - branchBankName
-  - prcptcd
   - certNo
-  - cardNumber
-  - accountPhone
-description: 人民币银行卡信息，创建国内CNY（人民币）银行卡信息时必传
+  - accountNumber
+  - contactPhone
