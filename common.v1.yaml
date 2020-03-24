@@ -33,26 +33,7 @@ paths:
       tags:
         - 通用
 components:
-  schemas:
-    bank-info:
-      title: 银行信息
-      type: object
-      description: 国内各银行信息
-      properties:
-        id:
-          type: string
-          description: 银行信息键值
-        name:
-          type: string
-          description: 银行名称，例如：中国银行
-        branchName:
-          type: string
-          description: 支行名称
-        prcptcd:
-          type: string
-          description: 大额行号
-      x-tags:
-        - Models
+  schemas: {}
   securitySchemes:
     Authorization:
       type: oauth2
