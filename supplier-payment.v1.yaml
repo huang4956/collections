@@ -109,10 +109,16 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./models/payee-bank-account.v1.yaml
       description: |-
-        创建收款人银行卡信息：
-          创建收款人银行卡信息分为两种：1、创建国内CNY（人民币）银行卡，这时候你需要传cnyBankInfo必传
-                                      2、创建外币银行卡，这时候foreignBankInfo必传
+        创建收款人银行卡信息，创建前请提前调用附件接口上传相关材料文件。
+
+        成功创建收款人银行卡之后，连连这边会给与审核，状态为审核成功之后就能正常使用该收款人。
+
+        收款银行编码请参照 `bank-info-enum` 对象
       requestBody:
         content:
           application/json:
@@ -121,11 +127,11 @@ paths:
               properties:
                 payeeBankAccountId:
                   type: string
-                  description: 外部收款人银行卡账户编号
+                  description: 外部唯一收款人银行卡账户编号
                   maxLength: 32
                 attachmentId:
                   type: string
-                  description: 附件编号
+                  description: 附件编号（调用附件上传接口获得）
                   maxLength: 32
                 accountType:
                   type: string
@@ -148,6 +154,10 @@ paths:
                     - ES
                     - GB
                     - HK
+                    - AU
+                    - TW
+                    - KR
+                    - JP
                   minLength: 2
                   maxLength: 2
                 cnyBankInfo:
@@ -159,9 +169,7 @@ paths:
                 - attachmentId
                 - accountType
                 - region
-                - cnyBankInfo
-                - foreignBankInfo
-        description: ''
+        description: "  创建收款人银行卡信息分为两种：\n  \n  1、创建国内CNY（人民币）银行卡，这时候你需要传cnyBankInfo必传\n  \n  \n  2、创建外币银行卡，这时候foreignBankInfo必传"
       tags:
         - 收款人
     get:
@@ -229,7 +237,16 @@ paths:
       responses:
         '200':
           description: OK
-      description: 创建付款指令
+          content:
+            application/json:
+              schema:
+                $ref: ./models/batch-pay.v1.yaml
+      description: |
+        1、该接口的调用需要优先在连连端开通功能白名单方可使用；
+
+        2、在创建该请求前用户需要先调用短信验证码接口来获取二次校验，短信验证码错误次数达8次账号锁定且在2小时之内不能再进行资金操作（当连连这边认定的假期期间，供应商付款也是暂时不可用的）；
+
+        3、当用户发送批量付款请求时，API端会根据当前汇率来预估用户余额是否充足，如果余额不足会返回余额不足提醒。
       requestBody:
         content:
           application/json:
@@ -238,54 +255,29 @@ paths:
               properties:
                 batchId:
                   type: string
-                  description: 外部批次号
+                  description: 外部唯一批次号
+                  maxLength: 32
                 verificationCode:
                   type: string
                   description: 短信验证码
+                  minLength: 4
+                  maxLength: 8
                 sourceCurrency:
                   type: string
                   description: 源币种
+                  example: USD
+                  minLength: 3
+                  maxLength: 3
                 targetCurrency:
                   type: string
                   description: 目标币种
+                  example: USD
+                  minLength: 3
+                  maxLength: 3
                 list:
                   type: object
-                  properties:
-                    tradeCode:
-                      type: string
-                      description: "    电商销售/货物贸易\n    物流费"
-                    payeeBankAccountId:
-                      type: string
-                      description: 收款人编号
-                    payeeBankAccountNumber:
-                      type: string
-                      description: 收款人银行卡号，用于校验
-                    paymentId:
-                      type: string
-                      description: 外部唯一单号
-                    tradeDate:
-                      type: string
-                      default: yyyy-MM-dd
-                      description: 交易时间
-                      format: date
-                    goodsName:
-                      type: string
-                      description: 商品名称
-                    goodsNumber:
-                      type: string
-                      description: 商品数量
-                    goodsPrice:
-                      type: string
-                      description: 商品单价
-                    logistics:
-                      type: string
-                      description: "    快递\n    当面采购\n    物流"
-                    procurementType:
-                      type: string
-                      description: "    网络采购\n    线下有票(增值税发票)\n    线下无票(无增值税发票)"
-                    tragetAmount:
-                      type: string
-                      description: 目标金额
+                  maxProperties: 5000
+                  description: 批量付款总笔数，最大5000条
                   required:
                     - tradeCode
                     - payeeBankAccountId
@@ -297,10 +289,66 @@ paths:
                     - goodsPrice
                     - logistics
                     - procurementType
+                    - tragetAmount
+                  properties:
+                    tradeCode:
+                      type: string
+                      description: "    122990(电商销售/货物贸易)\n    222040_1(物流费)"
+                      enum:
+                        - '122990'
+                        - '222040_1'
+                    payeeBankAccountId:
+                      type: string
+                      description: 收款人编号
+                      maxLength: 32
+                    payeeBankAccountNumber:
+                      type: string
+                      description: 收款人银行卡号，用于校验
+                      maxLength: 32
+                    paymentId:
+                      type: string
+                      description: 外部唯一单号
+                      maxLength: 32
+                    tradeDate:
+                      type: string
+                      default: yyyy-MM-dd
+                      description: 交易时间
+                      format: date
+                    goodsName:
+                      type: string
+                      description: 商品名称
+                      maxLength: 64
+                    goodsNumber:
+                      type: integer
+                      description: 商品数量
+                      exclusiveMaximum: false
+                    goodsPrice:
+                      type: number
+                      description: 商品单价
+                      minimum: 0
+                    logistics:
+                      type: string
+                      description: "    快递\n    当面采购\n    物流"
+                      enum:
+                        - 快递
+                        - 当面采购
+                        - 物流
+                    procurementType:
+                      type: string
+                      description: "    网络采购\n    线下有票(增值税发票)\n    线下无票(无增值税发票)"
+                      enum:
+                        - 网络采购
+                        - 线下有票(增值税发票)
+                        - 线下无票(无增值税发票)
+                    tragetAmount:
+                      type: string
+                      description: 目标金额
               required:
                 - batchId
+                - verificationCode
                 - sourceCurrency
                 - targetCurrency
+                - list
         description: ''
       tags:
         - 付款

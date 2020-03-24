@@ -1,0 +1,6 @@
+title: event-enum
+type: string
+description: |-
+  | topic| Description |
+  |--------|------------|
+  | payment.supplier.detail| 供应商付款明细结果，会返回明细以及状态 |
