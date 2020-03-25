@@ -79,7 +79,7 @@ paths:
         - schema:
             type: string
           in: query
-          name: accountNumber
+          name: accountNo
           description: 卡号
           required: true
         - schema:
@@ -246,7 +246,7 @@ paths:
 
         2、在创建该请求前用户需要先调用短信验证码接口来获取二次校验，短信验证码错误次数达8次账号锁定且在2小时之内不能再进行资金操作（当连连这边认定的假期期间，供应商付款也是暂时不可用的）；
 
-        3、当用户发送批量付款请求时，API端会根据当前汇率来预估用户余额是否充足，如果余额不足会返回余额不足提醒。
+        3、当用户发送批量付款请求时，API端会根据当前汇率来预估用户余额是否充足，如果余额不足会返回余额不足错误。
       requestBody:
         content:
           application/json:
@@ -281,7 +281,7 @@ paths:
                   required:
                     - tradeCode
                     - payeeBankAccountId
-                    - payeeBankAccountNumber
+                    - payeeBankAccountNo
                     - paymentId
                     - tradeDate
                     - goodsName
@@ -301,7 +301,7 @@ paths:
                       type: string
                       description: 收款人编号
                       maxLength: 32
-                    payeeBankAccountNumber:
+                    payeeBankAccountNo:
                       type: string
                       description: 收款人银行卡号，用于校验
                       maxLength: 32

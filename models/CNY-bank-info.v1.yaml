@@ -317,7 +317,7 @@ properties:
     type: string
     maxLength: 18
     description: '收款人证件号码:对公时为企业信用代码；对私为个人身份证号码'
-  accountNumber:
+  accountNo:
     type: string
     description: 银行卡号
     maxLength: 32
@@ -332,5 +332,5 @@ required:
   - cityCode
   - branchBankName
   - certNo
-  - accountNumber
+  - accountNo
   - contactPhone

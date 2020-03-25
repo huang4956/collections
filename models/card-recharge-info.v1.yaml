@@ -10,7 +10,7 @@ properties:
   accountName:
     type: string
     description: 打款人账户名称
-  accountNumber:
+  accountNo:
     type: string
     description: 打款人账号
   amount:
