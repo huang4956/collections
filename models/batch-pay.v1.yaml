@@ -7,7 +7,7 @@ properties:
   createTime:
     type: string
     description: 创建时间
-  extBatchId:
+  batchId:
     type: string
     description: 批次号
   count:
@@ -28,7 +28,7 @@ properties:
   payingCount:
     type: string
     description: 付款中
-  paiedCount:
+  paidCount:
     type: string
     description: 已付款
   failedCount:

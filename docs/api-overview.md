@@ -170,7 +170,7 @@ LLPAY-Signature:t=1574130398,v=b0VbG4uGA69gR4T1FFc7NzqbiBoDEOBvkQtJXytQd7dY+WDo0
 
 # Request IDs
 
-每个API请求都有一个关联的请求标识符。您可以响应头找到`Request-Id`下这个键值值。
+每个API请求都有一个关联的请求标识符。您可以响应头找到`Request-Id`下这个键值。
 
 # 字段命名规范
 

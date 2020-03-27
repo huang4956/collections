@@ -301,14 +301,6 @@ properties:
       - Raiffeisenbank AO
       - RHB Bank Berhad
     maxLength: 64
-  provinceCode:
-    type: string
-    description: 省份编码
-    maxLength: 32
-  cityCode:
-    type: string
-    description: 市编码
-    maxLength: 32
   branchBankName:
     type: string
     description: 支行名称
@@ -328,8 +320,6 @@ properties:
 required:
   - accountName
   - bankCode
-  - provinceCode
-  - cityCode
   - branchBankName
   - certNo
   - accountNo

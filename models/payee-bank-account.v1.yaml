@@ -2,9 +2,9 @@ title: 收款人银行卡信息对象
 type: object
 description: 收款人银行卡信息
 properties:
-  payeeBankAccountId:
+  id:
     type: string
-    description: 外部收款人银行卡账户编号
+    description: 收款人银行卡账户编号
     maxLength: 32
   accountType:
     type: string
@@ -42,7 +42,7 @@ properties:
       - SUCCESS
       - FAILED
 required:
-  - payeeBankAccountId
+  - id
   - accountType
   - region
   - status
