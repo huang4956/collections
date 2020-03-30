@@ -647,12 +647,14 @@ paths:
             application/json:
               schema:
                 $ref: ./models/batch-pay.v1.yaml
-      description: |
+      description: |+
         1、该接口的调用需要优先在连连端开通功能白名单方可使用；
 
         2、在创建该请求前用户需要先调用短信验证码接口来获取二次校验，短信验证码错误次数达8次账号锁定且在2小时之内不能再进行资金操作（当连连这边认定的假期期间，供应商付款也是暂时不可用的）；
 
         3、当用户发送批量付款请求时，API端会根据当前汇率来预估用户余额是否充足，如果余额不足会返回余额不足错误。
+
+
       requestBody:
         content:
           application/json:
