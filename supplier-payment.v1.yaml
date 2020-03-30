@@ -660,7 +660,7 @@ paths:
           application/json:
             schema:
               type: object
-              properties:                
+              properties:
                 batchId:
                   type: string
                   minLength: 16
@@ -828,7 +828,7 @@ paths:
                 payeeBankAccountId:
                   type: string
                   description: 外部收款人银行账户id
-                attatchmentId:
+                attachmentId:
                   type: string
                   description: 附件id
         description: ''
