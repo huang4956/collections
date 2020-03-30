@@ -660,7 +660,12 @@ paths:
           application/json:
             schema:
               type: object
-              properties:
+              properties:                
+                batchId:
+                  type: string
+                  minLength: 16
+                  maxLength: 32
+                  description: 付款批次号
                 verificationCode:
                   type: string
                   description: 短信验证码
@@ -752,6 +757,7 @@ paths:
                 - sourceCurrency
                 - targetCurrency
                 - list
+                - batchId
         description: ''
       tags:
         - 付款
