@@ -10,7 +10,7 @@ properties:
   batchId:
     type: string
     description: 批次号
-  count:
+  total:
     type: string
     description: 批次请求总数
   targetCurrency:
@@ -19,12 +19,12 @@ properties:
   targetAmount:
     type: string
     description: 目标金额
-  payingCount:
+  payingTotal:
     type: string
     description: 付款中
-  paidCount:
+  paidTotal:
     type: string
     description: 已付款
-  failedCount:
+  failedTotal:
     type: string
     description: 失败笔数

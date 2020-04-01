@@ -79,7 +79,7 @@ paths:
         - schema:
             type: string
           in: query
-          name: accountNo
+          name: payerAccountNo
           description: 卡号
           required: true
         - schema:
@@ -179,8 +179,9 @@ paths:
                     - JP
                   minLength: 2
                   maxLength: 2
-                cnyBankInfo:
+                cnyBankAccountInfo:
                   type: object
+                  description: 人民币银行账户
                   properties:
                     contactPhone:
                       type: string
@@ -514,7 +515,7 @@ paths:
                     - province
                     - bankCode
                     - accountName
-                foreignBankInfo:
+                noneCNYBankAccountInfo:
                   $ref: ./models/foreign-bank-info.v1.yaml
               required:
                 - attachmentId
@@ -596,7 +597,7 @@ paths:
         - schema:
             type: string
           in: query
-          name: accountName
+          name: accountNo
           description: 户名
         - schema:
             type: number

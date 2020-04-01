@@ -7,10 +7,10 @@ properties:
   bankTransferId:
     type: string
     description: 充值流水号
-  accountName:
+  payerAccountName:
     type: string
     description: 打款人账户名称
-  accountNo:
+  payerAccountNo:
     type: string
     description: 打款人账号
   amount:
@@ -24,8 +24,7 @@ properties:
     description: 创建时间
 required:
   - bankTransferId
-  - accountName
-  - accountNumber
+  - payerAccountName
   - amount
   - currency
   - createTime

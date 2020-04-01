@@ -2,6 +2,12 @@ title: 付款指令对象
 type: object
 description: 付款指令信息
 properties:
+  paymentId:
+    type: string
+    description: 外部流水号
+  payeeBankAccountId:
+    type: string
+    description: 收款人id
   sourceCurrency:
     type: string
     description: 源币种
@@ -14,6 +20,9 @@ properties:
   targetAmount:
     type: string
     description: 目标金额
+  tradeCode:
+    type: string
+    description: 贸易类型
   tradeDate:
     type: string
     description: 交易时间
@@ -32,9 +41,6 @@ properties:
   procurementType:
     type: string
     description: 采购类型
-  createTime:
-    type: string
-    description: 付款单创建时间
   status:
     type: string
     description: "    ON_GOING(\"付款中\"),\n    SUCCESS(\"付款成功\"),\n    FAILED(\"付款失败\"),\n    EXTERNAL_CHECKING(\"审核中\")"
@@ -46,7 +52,7 @@ properties:
       - REFUNDED
       - CANCELED
       - EXTERNAL_CHECKIGN
-  failedReson:
+  failedReason:
     type: string
     description: 失败原因
   rate:
@@ -58,12 +64,9 @@ properties:
   commissionReceived:
     type: string
     description: 实收手续费（源币种）
-  payeeBankAccountId:
-    type: string
-    description: 收款人id
-  paymentId:
-    type: string
-    description: 外部流水号
   refundAmount:
     type: string
     description: 退款金额（源币种，当退汇时有该金额）
+  createTime:
+    type: string
+    description: 付款单创建时间

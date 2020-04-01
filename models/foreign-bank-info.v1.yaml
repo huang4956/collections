@@ -1,6 +1,6 @@
 title: 外币银行卡信息对象
 type: object
-description: 外币银行卡信息，创建外币银行卡信息时必传
+description: 外币银行账户信息，创建外币银行账户信息时必传
 properties:
   accountName:
     type: string
