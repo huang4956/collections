@@ -79,7 +79,7 @@ paths:
         - schema:
             type: string
           in: query
-          name: payerAccountNo
+          name: accountNo
           description: 卡号
           required: true
         - schema:
@@ -102,6 +102,226 @@ paths:
       tags:
         - 卡
     parameters: []
+  /batch-payments:
+    get:
+      summary: 获取批量付款结果
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./models/batch-pay.v1.yaml
+      operationId: get-pays
+      description: 查询批量付款结果信息
+      requestBody: {}
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: batchId
+          required: true
+          description: 批量付款批次号
+      tags:
+        - 付款
+    post:
+      summary: 创建批量付款请求
+      operationId: post-pays
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./models/batch-pay.v1.yaml
+      description: |+
+        1、该接口的调用需要优先在连连端开通功能白名单方可使用；
+
+        2、在创建该请求前用户需要先调用短信验证码接口来获取二次校验，短信验证码错误次数达8次账号锁定且在2小时之内不能再进行资金操作（当连连这边认定的假期期间，供应商付款也是暂时不可用的）；
+
+        3、当用户发送批量付款请求时，API端会根据当前汇率来预估用户余额是否充足，如果余额不足会返回余额不足错误。
+
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                batchId:
+                  type: string
+                  minLength: 16
+                  maxLength: 32
+                  description: 付款批次号
+                verificationCode:
+                  type: string
+                  description: 短信验证码
+                  minLength: 4
+                  maxLength: 8
+                sourceCurrency:
+                  type: string
+                  description: 源币种
+                  example: USD
+                  minLength: 3
+                  maxLength: 3
+                targetCurrency:
+                  type: string
+                  description: 目标币种
+                  example: USD
+                  minLength: 3
+                  maxLength: 3
+                list:
+                  type: object
+                  maxProperties: 5000
+                  description: 批量付款总笔数，最大5000条
+                  required:
+                    - tradeCode
+                    - payeeBankAccountId
+                    - payeeBankAccountNo
+                    - paymentId
+                    - tradeDate
+                    - goodsName
+                    - goodsNumber
+                    - goodsPrice
+                    - logistics
+                    - procurementType
+                    - tragetAmount
+                  properties:
+                    tradeCode:
+                      type: string
+                      description: "    122990(电商销售/货物贸易)\n    222040_1(物流费)"
+                      enum:
+                        - '122990'
+                        - '222040_1'
+                    payeeBankAccountId:
+                      type: string
+                      description: 收款人编号
+                      maxLength: 32
+                    payeeBankAccountNo:
+                      type: string
+                      description: 收款人银行卡号，用于校验
+                      maxLength: 32
+                    paymentId:
+                      type: string
+                      description: 外部唯一单号
+                      maxLength: 32
+                    tradeDate:
+                      type: string
+                      default: yyyy-MM-dd
+                      description: 交易时间
+                      format: date
+                    goodsName:
+                      type: string
+                      description: 商品名称
+                      maxLength: 64
+                    goodsNumber:
+                      type: integer
+                      description: 商品数量
+                      exclusiveMaximum: false
+                    goodsPrice:
+                      type: number
+                      description: 商品单价
+                      minimum: 0
+                    logistics:
+                      type: string
+                      description: "    快递\n    当面采购\n    物流"
+                      enum:
+                        - 快递
+                        - 当面采购
+                        - 物流
+                    procurementType:
+                      type: string
+                      description: "    网络采购\n    线下有票(增值税发票)\n    线下无票(无增值税发票)"
+                      enum:
+                        - 网络采购
+                        - 线下有票(增值税发票)
+                        - 线下无票(无增值税发票)
+                    tragetAmount:
+                      type: string
+                      description: 目标金额
+              required:
+                - verificationCode
+                - sourceCurrency
+                - targetCurrency
+                - list
+                - batchId
+        description: ''
+      tags:
+        - 付款
+    parameters: []
+  '/batch-payments/{batchId}/payments':
+    parameters:
+      - schema:
+          type: string
+        name: batchId
+        in: path
+        required: true
+    get:
+      summary: 获取付款明细
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: number
+                  list:
+                    type: array
+                    items:
+                      $ref: ./models/payment.v1.yaml
+      operationId: get-batch-pays-extBatchId
+      description: 获取批量付款明细
+      requestBody:
+        description: ''
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: paymentId
+        - schema:
+            type: integer
+            maximum: 100
+            minimum: 1
+          in: query
+          name: pageSize
+          required: true
+          description: 分页大小
+        - schema:
+            type: integer
+            maximum: 0
+            minimum: 1
+          in: query
+          name: pageNum
+          required: true
+          description: 页码
+      tags:
+        - 付款
+  /payee-document:
+    put:
+      summary: 更新收款人材料信息
+      operationId: put-payee-document
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payeeBankAccountId:
+                  type: string
+                  description: 外部收款人银行账户id
+                attachmentId:
+                  type: string
+                  description: 附件id
+        description: ''
+      description: 更新材料信息，更新材料信息后用户材料状态变成待审核状态，审核成功之后即可使用
+      tags:
+        - 收款人
   /payee-bank-accounts:
     post:
       summary: 创建收款人银行卡信息
@@ -616,226 +836,24 @@ paths:
           name: pageNum
           description: 分页页码
           required: true
-  /batch-payments:
-    get:
-      summary: 获取批量付款结果
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: ./models/batch-pay.v1.yaml
-      operationId: get-pays
-      description: 查询批量付款结果信息
-      requestBody: {}
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: batchId
-          required: true
-          description: 批量付款批次号
       tags:
-        - 付款
-    post:
-      summary: 创建批量付款请求
-      operationId: post-pays
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: ./models/batch-pay.v1.yaml
-      description: |+
-        1、该接口的调用需要优先在连连端开通功能白名单方可使用；
-
-        2、在创建该请求前用户需要先调用短信验证码接口来获取二次校验，短信验证码错误次数达8次账号锁定且在2小时之内不能再进行资金操作（当连连这边认定的假期期间，供应商付款也是暂时不可用的）；
-
-        3、当用户发送批量付款请求时，API端会根据当前汇率来预估用户余额是否充足，如果余额不足会返回余额不足错误。
-
-
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                batchId:
-                  type: string
-                  minLength: 16
-                  maxLength: 32
-                  description: 付款批次号
-                verificationCode:
-                  type: string
-                  description: 短信验证码
-                  minLength: 4
-                  maxLength: 8
-                sourceCurrency:
-                  type: string
-                  description: 源币种
-                  example: USD
-                  minLength: 3
-                  maxLength: 3
-                targetCurrency:
-                  type: string
-                  description: 目标币种
-                  example: USD
-                  minLength: 3
-                  maxLength: 3
-                list:
-                  type: object
-                  maxProperties: 5000
-                  description: 批量付款总笔数，最大5000条
-                  required:
-                    - tradeCode
-                    - payeeBankAccountId
-                    - payeeBankAccountNo
-                    - paymentId
-                    - tradeDate
-                    - goodsName
-                    - goodsNumber
-                    - goodsPrice
-                    - logistics
-                    - procurementType
-                    - tragetAmount
-                  properties:
-                    tradeCode:
-                      type: string
-                      description: "    122990(电商销售/货物贸易)\n    222040_1(物流费)"
-                      enum:
-                        - '122990'
-                        - '222040_1'
-                    payeeBankAccountId:
-                      type: string
-                      description: 收款人编号
-                      maxLength: 32
-                    payeeBankAccountNo:
-                      type: string
-                      description: 收款人银行卡号，用于校验
-                      maxLength: 32
-                    paymentId:
-                      type: string
-                      description: 外部唯一单号
-                      maxLength: 32
-                    tradeDate:
-                      type: string
-                      default: yyyy-MM-dd
-                      description: 交易时间
-                      format: date
-                    goodsName:
-                      type: string
-                      description: 商品名称
-                      maxLength: 64
-                    goodsNumber:
-                      type: integer
-                      description: 商品数量
-                      exclusiveMaximum: false
-                    goodsPrice:
-                      type: number
-                      description: 商品单价
-                      minimum: 0
-                    logistics:
-                      type: string
-                      description: "    快递\n    当面采购\n    物流"
-                      enum:
-                        - 快递
-                        - 当面采购
-                        - 物流
-                    procurementType:
-                      type: string
-                      description: "    网络采购\n    线下有票(增值税发票)\n    线下无票(无增值税发票)"
-                      enum:
-                        - 网络采购
-                        - 线下有票(增值税发票)
-                        - 线下无票(无增值税发票)
-                    tragetAmount:
-                      type: string
-                      description: 目标金额
-              required:
-                - verificationCode
-                - sourceCurrency
-                - targetCurrency
-                - list
-                - batchId
-        description: ''
-      tags:
-        - 付款
-    parameters: []
-  '/batch-payments/{batchId}/payments':
+        - 收款人
+  '/payee-bank-accounts/account/{id}':
     parameters:
       - schema:
           type: string
-        name: batchId
+        name: id
         in: path
         required: true
-    get:
-      summary: 获取付款明细
+    delete:
+      summary: 删除收款人银行卡信息
+      operationId: delete-payee-bank-accounts-account-id
       responses:
         '200':
           description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  total:
-                    type: number
-                  list:
-                    type: array
-                    items:
-                      $ref: ./models/payment.v1.yaml
-      operationId: get-batch-pays-extBatchId
-      description: 获取批量付款明细
-      requestBody:
-        description: ''
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: paymentId
-        - schema:
-            type: integer
-            maximum: 100
-            minimum: 1
-          in: query
-          name: pageSize
-          required: true
-          description: 分页大小
-        - schema:
-            type: integer
-            maximum: 0
-            minimum: 1
-          in: query
-          name: pageNum
-          required: true
-          description: 页码
-      tags:
-        - 付款
-  /payee-document:
-    put:
-      summary: 更新收款人材料信息
-      operationId: put-payee-document
-      responses:
-        '200':
-          description: OK
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                payeeBankAccountId:
-                  type: string
-                  description: 外部收款人银行账户id
-                attachmentId:
-                  type: string
-                  description: 附件id
-        description: ''
-      description: 更新材料信息，更新材料信息后用户材料状态变成待审核状态，审核成功之后即可使用
       tags:
         - 收款人
+      description: ''
 components:
   schemas: {}
   securitySchemes:

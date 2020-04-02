@@ -22,9 +22,13 @@ properties:
   createTime:
     type: string
     description: 创建时间
+  accountNo:
+    type: string
+    description: 收款人账号
 required:
   - bankTransferId
   - payerAccountName
   - amount
   - currency
   - createTime
+  - accountNo
