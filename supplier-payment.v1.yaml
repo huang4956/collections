@@ -427,7 +427,7 @@ paths:
                       type: string
                       description: 省份编码（可以通过`省市字典接口查询`，该字段只是为了确认银行大额行号，不做保存）
                       maxLength: 32
-                    bankCode:
+                    bankName:
                       type: string
                       description: 银行编码，请参照`bank-info-enum`对象
                       enum:
@@ -733,7 +733,7 @@ paths:
                     - branchBankName
                     - city
                     - province
-                    - bankCode
+                    - bankName
                     - accountName
                 noneCNYBankAccountInfo:
                   $ref: ./models/foreign-bank-info.v1.yaml
@@ -744,31 +744,6 @@ paths:
         description: "  创建收款人银行卡信息分为两种：\n  \n  1、创建国内CNY（人民币）银行卡，这时候你需要传cnyBankInfo必传\n  \n  \n  2、创建外币银行卡，这时候foreignBankInfo必传"
       tags:
         - 收款人
-    delete:
-      summary: 删除收款人银行卡信息
-      operationId: delete-payees
-      description: 根据收款人银行卡id删除收款人银行卡信息
-      requestBody: {}
-      parameters: []
-      tags:
-        - 收款人
-      responses:
-        '200':
-          description: OK
-        '400':
-          description: |-
-            业务失败:
-
-            | Code | Description |
-            |------|------------|
-            | 999995| 参数校验失败 |
-        '500':
-          description: |-
-            系统异常类型:
-
-            | Code | Description |
-            |------|------------|
-            | 500000| Internal Server Error, Contact Lianlian Pay for technical support|
     parameters: []
     get:
       summary: 分页查询收款人信息

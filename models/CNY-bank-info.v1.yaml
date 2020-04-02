@@ -6,7 +6,7 @@ properties:
     type: string
     description: 账户名称
     maxLength: 32
-  bankCode:
+  bankName:
     type: string
     description: 银行编码，请参照`bank-info-enum`对象
     enum:
@@ -319,7 +319,7 @@ properties:
     maxLength: 12
 required:
   - accountName
-  - bankCode
+  - bankName
   - branchBankName
   - certNo
   - accountNo
