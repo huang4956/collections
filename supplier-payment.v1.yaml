@@ -290,13 +290,12 @@ paths:
           required: true
           description: 分页大小
         - schema:
-            type: integer
-            maximum: 0
+            type: number
             minimum: 1
           in: query
           name: pageNum
-          required: true
           description: 页码
+          required: true
       tags:
         - 付款
   /payee-document:
