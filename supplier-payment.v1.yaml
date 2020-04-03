@@ -189,10 +189,10 @@ paths:
                   properties:
                     tradeCode:
                       type: string
-                      description: "    122990(电商销售/货物贸易)\n    222040_1(物流费)"
+                      description: "    E_BUSINESS(电商销售/货物贸易)\n    LOGISTIC_FEE(物流费)"
                       enum:
-                        - '122990'
-                        - '222040_1'
+                        - E_BUSINESS
+                        - LOGISTIC_FEE
                     payeeBankAccountId:
                       type: string
                       description: 收款人编号
@@ -224,27 +224,27 @@ paths:
                       minimum: 0
                     logistics:
                       type: string
-                      description: "    快递\n    当面采购\n    物流"
+                      description: "    EXPRESS(快递)\n    OFFLINE(当面采购)\n    LOGISTICS(物流)"
                       enum:
-                        - 快递
-                        - 当面采购
-                        - 物流
+                        - EXPRESS
+                        - OFFLINE
+                        - LOGISTICS
                     procurementType:
                       type: string
-                      description: "    网络采购\n    线下有票(增值税发票)\n    线下无票(无增值税发票)"
+                      description: "    ONLINE(网络采购)\n    OFFLINE_HAS_TAX(线下有票(增值税发票))\n    OFFLINE_NO_TAX(线下无票(无增值税发票))"
                       enum:
-                        - 网络采购
-                        - 线下有票(增值税发票)
-                        - 线下无票(无增值税发票)
+                        - ONLINE
+                        - OFFLINE_HAS_TAX
+                        - OFFLINE_NO_TAX
                     tragetAmount:
                       type: string
                       description: 目标金额
               required:
+                - batchId
                 - verificationCode
                 - sourceCurrency
                 - targetCurrency
                 - list
-                - batchId
         description: ''
       tags:
         - 付款

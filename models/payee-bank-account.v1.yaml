@@ -41,8 +41,12 @@ properties:
       - WAITING_CHECK
       - SUCCESS
       - FAILED
+  createTime:
+    type: string
+    description: 创建时间
 required:
   - id
   - accountType
   - region
   - status
+  - createTime
