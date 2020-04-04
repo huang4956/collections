@@ -429,7 +429,7 @@ paths:
                       maximum: 288
                     cityCode:
                       type: string
-                      description: '城市编码,请根据`省室字典接口`查询'
+                      description: '城市编码,请根据`省市字典接口`查询'
                   required:
                     - contactPhone
                     - accountNo
