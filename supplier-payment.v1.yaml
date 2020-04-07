@@ -463,7 +463,9 @@ paths:
                     type: number
                     description: 总大小
                   list:
-                    $ref: ./models/payee-bank-account.v1.yaml
+                    type: array
+                    items:
+                      $ref: ./models/payee-bank-account.v1.yaml
                 required:
                   - total
         '400':

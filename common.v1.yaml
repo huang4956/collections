@@ -32,6 +32,31 @@ paths:
       description: 获取短信校验码，用于相关接口做二次验证，例如：提现、供应商付款等
       tags:
         - 通用
+  '/dictionaries/district/{code}':
+    parameters:
+      - schema:
+          type: string
+        name: code
+        in: path
+        required: true
+    get:
+      summary: 省市字典接口
+      tags:
+        - 通用
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: ./models/district.v1.yaml
+      operationId: get-dictionaries-district-code
+      description: ''
 components:
   schemas: {}
   securitySchemes:
