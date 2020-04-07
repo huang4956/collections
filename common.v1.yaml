@@ -56,7 +56,7 @@ paths:
                     items:
                       $ref: ./models/district.v1.yaml
       operationId: get-dictionaries-district-code
-      description: ''
+      description: 获取省市字典，根code请填写 `CHN`
 components:
   schemas: {}
   securitySchemes:
