@@ -172,7 +172,6 @@ paths:
                   maxLength: 3
                 list:
                   type: object
-                  maxProperties: 5000
                   description: 批量付款总笔数，最大5000条
                   required:
                     - tradeCode
@@ -185,7 +184,8 @@ paths:
                     - goodsPrice
                     - logistics
                     - procurementType
-                    - tragetAmount
+                    - targetAmount
+                  maxProperties: 1000
                   properties:
                     tradeCode:
                       type: string
@@ -236,7 +236,7 @@ paths:
                         - ONLINE
                         - OFFLINE_HAS_TAX
                         - OFFLINE_NO_TAX
-                    tragetAmount:
+                    targetAmount:
                       type: string
                       description: 目标金额
               required:
