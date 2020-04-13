@@ -1,0 +1,309 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Withdraw-API",
+    "version": "1.0",
+    "description": "提现API"
+  },
+  "servers": [
+    {
+      "url": "https://global-api-sandbox.lianlianpay-inc.com/collection/v1",
+      "description": "Sandbox"
+    },
+    {
+      "url": "https://global-api.lianlianpay.com/collection/v1",
+      "description": "Production"
+    }
+  ],
+  "paths": {
+    "/withdraws": {
+      "get": {
+        "summary": "获取提现列表",
+        "tags": [
+          "withdraw"
+        ],
+        "responses": {},
+        "operationId": "get-withdraws",
+        "description": "接口聚合了店铺、多比、提前宝提现列表查询，结果按创建时间排序。",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "startTime",
+            "description": "开始时间",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "endTime",
+            "description": "结束时间",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "pageSize",
+            "description": "分页大小",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "pageNum",
+            "description": "页码",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "BALANCE",
+                "WALLET",
+                "CREDIT"
+              ]
+            },
+            "in": "query",
+            "name": "withdrawType",
+            "description": "提现类型"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "platform",
+            "description": "平台类型\n\ncode|name\n-|-\nAmazon|亚马逊\nFBA|亚马逊印度站（FBA）\nPAYPAL|PayPal\nSHOPEE|SHOPEE\nSOUQ|SOUQ\nCDiscount|Cdiscount\nMercado|Mercadolibre\nJDID|JD.ID(USD)\nJDIDIDR|JD.ID\nRakuten|法国乐天\nDeRakuten|德国乐天\nBRINGLY|bringly\nFNAC|fnac\nSHOPIFY|Shopify\nFRUUGO|fruugo\nSELF_BUILD|自建站\nQOO10|Qoo10\nAPPSTORE|AppStore\nALIEXPRESS|AliExpress\nBIGCOMMERCE|Bigcommerce\nMAGENTO|Magento\nNOON|Noon\nREAL_DE|real.de\nMEESHO|Meesho\nALLEGRO|Allegro\nALLEGRO_PLN|Allegro\nCOUPANG|Coupang\nDARTY|Darty\nVOVA|Vova\nB2W|B2W\nADSENSE|AdSense\nADMOB|AdMob\nWIX|Wix\nGOOGLE_SHOPPING_ACTIONS|Google Shopping Actions\nEMAG|eMAG"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "currency",
+            "description": "币种"
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "status",
+            "description": "状态 \n\nid|message\n-|-\n1|提现中\n2|提现成功\n3|提现失败"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "externalTransId",
+            "description": "第三方单号"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "total": {
+                    "type": "string"
+                  },
+                  "list": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/WithdrawInfo"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "WithdrawInfo": {
+        "title": "WithdrawInfo",
+        "type": "object",
+        "description": "",
+        "x-tags": [
+          "withdraw"
+        ],
+        "properties": {
+          "externalTransId": {
+            "type": "string",
+            "description": "第三方单号"
+          },
+          "status": {
+            "type": "integer",
+            "description": "状态 \n\nid|message\n-|-\n1|提现中\n2|提现成功\n3|提现失败"
+          },
+          "withdrawType": {
+            "type": "string",
+            "description": "提现类型 \n\nid|message\n-|-\nBALANCE|店铺提现\nWALLET|多比提现\nCREDIT|提前宝"
+          },
+          "platform": {
+            "type": "string",
+            "description": "平台"
+          },
+          "amount": {
+            "type": "string",
+            "description": "提现金额"
+          },
+          "currency": {
+            "type": "string",
+            "description": "提现币种"
+          },
+          "targetAmount": {
+            "type": "string",
+            "description": "打款金额"
+          },
+          "targetCurrency": {
+            "type": "string",
+            "description": "打款币种"
+          },
+          "feeAmount": {
+            "type": "string",
+            "description": "应收手续费"
+          },
+          "actualFeeAmount": {
+            "type": "string",
+            "description": "实收手续费"
+          },
+          "feeCurrency": {
+            "type": "string",
+            "description": "手续费币种"
+          },
+          "createTime": {
+            "type": "string",
+            "description": "创建时间"
+          },
+          "rate": {
+            "type": "string",
+            "description": "提现汇率"
+          },
+          "rateTime": {
+            "type": "string",
+            "description": "结汇时间"
+          },
+          "bankAccountName": {
+            "type": "string",
+            "description": "提现银行账号户名"
+          },
+          "bankName": {
+            "type": "string",
+            "description": "银行名称"
+          },
+          "bankAccountNo": {
+            "type": "string",
+            "description": "银行账号"
+          },
+          "withdrawDetailList": {
+            "type": "array",
+            "description": "明细",
+            "items": {
+              "$ref": "#/components/schemas/WithdrawDetail"
+            }
+          },
+          "feeRate": {
+            "type": "string",
+            "description": "手续费费率"
+          },
+          "creditFeeAmount": {
+            "type": "string",
+            "description": "提前宝手续费"
+          }
+        },
+        "required": [
+          "externalTransId",
+          "status",
+          "withdrawType",
+          "platform",
+          "amount",
+          "currency",
+          "targetAmount",
+          "targetCurrency",
+          "feeAmount",
+          "actualFeeAmount",
+          "feeCurrency",
+          "createTime",
+          "rate",
+          "rateTime",
+          "bankAccountName",
+          "bankName",
+          "bankAccountNo",
+          "withdrawDetailList",
+          "feeRate",
+          "creditFeeAmount"
+        ]
+      },
+      "WithdrawDetail": {
+        "title": "WithdrawDetail",
+        "type": "object",
+        "x-tags": [
+          "withdraw"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "明细流水号"
+          },
+          "shopName": {
+            "type": "string",
+            "description": "店铺名称"
+          },
+          "shopAccountId": {
+            "type": "string",
+            "description": "店铺账号id"
+          },
+          "amount": {
+            "type": "string",
+            "description": "金额"
+          },
+          "currency": {
+            "type": "string",
+            "description": "币种"
+          },
+          "feeAmount": {
+            "type": "string",
+            "description": "应收手续费"
+          },
+          "actualFeeAmount": {
+            "type": "string",
+            "description": "实收手续费"
+          },
+          "feeCurrency": {
+            "type": "string",
+            "description": "手续费币种"
+          },
+          "creditFeeAmount": {
+            "type": "string",
+            "description": "提前宝手续费"
+          }
+        },
+        "required": [
+          "id",
+          "shopName",
+          "shopAccountId",
+          "amount",
+          "currency",
+          "feeAmount",
+          "actualFeeAmount",
+          "feeCurrency",
+          "creditFeeAmount"
+        ]
+      }
+    }
+  }
+}
