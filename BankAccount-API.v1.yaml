@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
-  title: Bankcard API
+  title: 银行账号API
   version: '1.0'
-  description: 银行卡API
+  description: ''
 servers:
   - url: 'https://global-api-sandbox.lianlianpay-inc.com/collection/v1'
     description: Sandbox
@@ -48,15 +48,13 @@ paths:
           description: 页码
           required: true
       tags:
-        - bankAccount
+        - 银行账号API
 components:
   schemas:
     BankAccountInfo:
-      title: BankAccountInfo
+      title: 提现银行账号对象
       type: object
-      description: 提现银行账号对象
-      x-tags:
-        - bankAccount
+      description: ''
       properties:
         id:
           type: string
@@ -94,3 +92,5 @@ components:
         - currency
         - district
         - bankAccountType
+      x-tags:
+        - MODELS
