@@ -31,7 +31,7 @@ properties:
     maxLength: 2
   cnyBankInfo:
     $ref: ./CNY-bank-info.v1.yaml
-  foreignBankInfo:
+  noneCNYBankInfo:
     $ref: ./foreign-bank-info.v1.yaml
   status:
     type: string

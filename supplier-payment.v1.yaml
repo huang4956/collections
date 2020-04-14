@@ -11,7 +11,7 @@ servers:
 paths:
   /supplier/v1/supplier/v1/cards:
     get:
-      summary: 查询多比充值账号信息
+      summary: 查询多比充值银行账号信息
       operationId: get-cards
       responses:
         '200':
@@ -20,7 +20,7 @@ paths:
             application/json:
               schema:
                 $ref: ./models/card.v1.yaml
-      description: 根据币种获取卡信息
+      description: 根据币种获取银行账号信息
       requestBody:
         description: ''
       parameters:
@@ -30,7 +30,7 @@ paths:
           name: currency
           required: true
       tags:
-        - 卡
+        - 多比银行账号
     parameters: []
   /supplier/v1/supplier/v1/card-recharges:
     get:
@@ -56,7 +56,7 @@ paths:
                   - total
                   - list
       operationId: get-cards-recharges
-      description: 查询虚拟卡充值记录
+      description: 查询多比银行账号充值记录
       requestBody:
         description: ''
       parameters:
@@ -81,7 +81,7 @@ paths:
             type: string
           in: query
           name: accountNo
-          description: 卡号
+          description: 银行账号
           required: true
         - schema:
             type: integer
@@ -101,11 +101,11 @@ paths:
           description: 页码
           required: true
       tags:
-        - 卡
+        - 多比银行账号
     parameters: []
   /supplier/v1/batch-payments:
     get:
-      summary: 获取批量付款结果
+      summary: 查询批量付款结果
       responses:
         '200':
           description: OK
@@ -200,7 +200,7 @@ paths:
                       maxLength: 32
                     payeeBankAccountNo:
                       type: string
-                      description: 收款人银行卡号，用于校验
+                      description: 收款人银行账号，用于校验
                       maxLength: 32
                     paymentId:
                       type: string
@@ -258,7 +258,7 @@ paths:
         in: path
         required: true
     get:
-      summary: 获取付款明细
+      summary: 查询付款明细
       responses:
         '200':
           description: OK
@@ -325,7 +325,7 @@ paths:
     parameters: []
   /supplier/v1/payee-bank-accounts:
     post:
-      summary: 创建收款人银行卡信息
+      summary: 创建收款人银行账号信息
       operationId: post-payees
       responses:
         '200':
@@ -358,9 +358,9 @@ paths:
             |------|------------|
             | 500000| Internal Server Error, Contact Lianlian Pay for technical support|
       description: |-
-        创建收款人银行卡信息，创建前请提前调用附件接口上传相关材料文件，创建成功会返回收款人信息，如果姓名、证件号、银行卡匹配已有收款人信息，则会返回已存在的收款人。
+        创建收款人银行账号信息，创建前请提前调用附件接口上传相关材料文件，创建成功会返回收款人信息，如果姓名、证件号、银行账号匹配已有收款人信息，则会返回已存在的收款人。
 
-        成功创建收款人银行卡之后，连连这边会给与审核，状态为审核成功之后就能正常使用该收款人。
+        成功创建收款人银行账号之后，连连这边会给与审核，状态为审核成功之后就能正常使用该收款人。
 
         收款银行编码请参照 `银行信息枚举` 对象
       requestBody:
@@ -379,7 +379,7 @@ paths:
                     - ENTERPRISE
                     - INDIVIDUAL
                   description: |-
-                    银行卡账户绑定类型：
+                    银行账户绑定类型：
                        ENTERPRISE: 对公类型
                        INDIVIDUAL: 对私类型
                 region:
@@ -410,7 +410,7 @@ paths:
                       maxLength: 12
                     accountNo:
                       type: string
-                      description: 银行卡号
+                      description: 银行账号
                       maxLength: 32
                     certNo:
                       type: string
@@ -446,12 +446,12 @@ paths:
                 - attachmentId
                 - accountType
                 - region
-        description: "  创建收款人银行卡信息分为两种：\n  \n  1、创建国内CNY（人民币）银行卡，这时候你需要传cnyBankInfo必传\n  \n  \n  2、创建外币银行卡，这时候foreignBankInfo必传"
+        description: "  创建收款人银行账号信息分为两种：\n  \n  1、创建国内CNY（人民币）银行账号，这时候你需要传cnyBankInfo必传\n  \n  \n  2、创建外币银行账号，这时候noneCNYBankInfo必传"
       tags:
         - 收款人
     parameters: []
     get:
-      summary: 分页查询收款人信息
+      summary: 查询收款人信息
       operationId: get-payee-bank-accounts
       responses:
         '200':
@@ -490,7 +490,7 @@ paths:
             type: string
           in: query
           name: id
-          description: 收款人银行卡账户号
+          description: 收款人银行账户编号
         - schema:
             type: string
           in: query
@@ -528,7 +528,7 @@ paths:
         in: path
         required: true
     delete:
-      summary: 删除收款人银行卡信息
+      summary: 删除收款人银行账号信息
       operationId: delete-payee-bank-accounts-account-id
       responses:
         '200':
