@@ -19,7 +19,7 @@ paths:
               type: object
               properties:
                 type:
-                  $ref: ./models/verification-code-enum.v1.yaml
+                  $ref: '#/components/schemas/verification-code-enum'
       description: 获取短信校验码，用于相关接口做二次验证，例如：提现、供应商付款等
       tags:
         - 通用
@@ -46,12 +46,29 @@ paths:
                   items:
                     type: array
                     items:
-                      $ref: ./models/district.v1.yaml
+                      $ref: '#/components/schemas/district'
       operationId: get-dictionaries-district-code
       description: 获取省市字典，根code请填写 `CHN`
 components:
   schemas:
-    校验码枚举:
+    district:
+      title: 省市区编码
+      type: object
+      properties:
+        name:
+          type: string
+          description: 名称
+          example: 中国
+        code:
+          type: string
+          description: 编码
+          example: CNH
+      required:
+        - code
+        - name
+      x-tags:
+        - Models
+    verification-code-enum:
       type: string
       title: 校验码枚举
       enum:
@@ -63,7 +80,28 @@ components:
         |--------|------------|
         | WITHDRAW_COMBINE| 提现校验码 |
         | SUPPLIER_PAYMENT | 供应商付款校验码 |
-
+      x-tags:
+        - Models
+    attachment:
+      title: 附件对象
+      type: object
+      properties:
+        id:
+          type: string
+          description: Document id in Lianlian Pay system
+        name:
+          type: string
+          description: Document name
+        size:
+          type: integer
+          description: Document size
+        create_time:
+          type: string
+          format: date-time
+          description: 'Document create time, UTC+0 timestamp'
+      description: 附件接口
+      x-tags:
+        - 通用
   securitySchemes:
     Authorization:
       type: oauth2
