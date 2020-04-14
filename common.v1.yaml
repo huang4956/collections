@@ -89,19 +89,19 @@ components:
         id:
           type: string
           description: Document id in Lianlian Pay system
-        name:
-          type: string
-          description: Document name
-        size:
-          type: integer
-          description: Document size
         create_time:
           type: string
           format: date-time
           description: 'Document create time, UTC+0 timestamp'
-      description: 附件接口
+        size:
+          type: integer
+          description: Document size
+        name:
+          type: string
+          description: Document name
       x-tags:
         - 通用
+      description: 附件接口
   securitySchemes:
     Authorization:
       type: oauth2
@@ -117,7 +117,7 @@ components:
           scopes: {}
       description: '本接口中使用Basic Auth认证：(Authorization: Basic &lt;&lt;Basic64.encode(developerId:token)&gt;&gt;)'
 info:
-  title: 5. 通用服务
+  title: 7. 通用服务
   version: '1.0'
   description: ''
 servers:

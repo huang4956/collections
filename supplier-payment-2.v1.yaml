@@ -57,7 +57,7 @@ paths:
           description: 页码
           required: true
       tags:
-        - 付款
+        - 操作
   /supplier/v1/batch-payments:
     get:
       summary: 查询批量付款结果
@@ -79,7 +79,7 @@ paths:
           required: true
           description: 批量付款批次号
       tags:
-        - 付款
+        - 操作
     post:
       summary: 创建批量付款请求
       operationId: post-pays
@@ -203,7 +203,7 @@ paths:
                 - list
         description: ''
       tags:
-        - 付款
+        - 操作
     parameters: []
 components:
   schemas:
