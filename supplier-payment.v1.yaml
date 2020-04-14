@@ -1,15 +1,15 @@
 openapi: 3.0.0
 info:
-  title: 供应商付款API
+  title: 4. 供应商付款服务
   version: '1.0'
   description: 供应商付款api
 servers:
-  - url: 'https://global-api-sandbox.lianlianpay-inc.com/supplier/v1'
+  - url: 'https://global-api-sandbox.lianlianpay-inc.com'
     description: 沙盒环境地址
   - description: 生产环境地址
-    url: 'https://global-api.lianlianglobal.com/supplier/v1'
+    url: 'https://global-api.lianlianglobal.com'
 paths:
-  /cards:
+  /supplier/v1/supplier/v1/cards:
     get:
       summary: 查询多比充值账号信息
       operationId: get-cards
@@ -31,7 +31,8 @@ paths:
           required: true
       tags:
         - 卡
-  /card-recharges:
+    parameters: []
+  /supplier/v1/supplier/v1/card-recharges:
     get:
       summary: 查询银行转入记录
       responses:
@@ -102,7 +103,7 @@ paths:
       tags:
         - 卡
     parameters: []
-  /batch-payments:
+  /supplier/v1/batch-payments:
     get:
       summary: 获取批量付款结果
       responses:
@@ -249,7 +250,7 @@ paths:
       tags:
         - 付款
     parameters: []
-  '/batch-payments/{batchId}/payments':
+  '/supplier/v1/batch-payments/{batchId}/payments':
     parameters:
       - schema:
           type: string
@@ -298,7 +299,7 @@ paths:
           required: true
       tags:
         - 付款
-  /payee-document:
+  /supplier/v1/payee-document:
     put:
       summary: 更新收款人材料信息
       operationId: put-payee-document
@@ -321,7 +322,8 @@ paths:
       description: 更新材料信息，更新材料信息后用户材料状态变成待审核状态，审核成功之后即可使用
       tags:
         - 收款人
-  /payee-bank-accounts:
+    parameters: []
+  /supplier/v1/payee-bank-accounts:
     post:
       summary: 创建收款人银行卡信息
       operationId: post-payees
@@ -518,7 +520,7 @@ paths:
           required: true
       tags:
         - 收款人
-  '/payee-bank-accounts/account/{id}':
+  '/supplier/v1/payee-bank-accounts/account/{id}':
     parameters:
       - schema:
           type: string

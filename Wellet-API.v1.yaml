@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: 多比钱包API
+  title: 2. 多比钱包服务
   version: '1.0'
   description: ''
 servers:

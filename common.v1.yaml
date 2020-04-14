@@ -1,15 +1,6 @@
 openapi: 3.0.0
-info:
-  title: 通用API
-  version: '1.0'
-  description: 通用api
-servers:
-  - url: 'https://global-api-sandbox.lianlianpay-inc.com/common/v1'
-    description: 沙盒环境地址
-  - url: 'https://global-api.lianlianglobal.com/common/v1'
-    description: 生产环境地址
 paths:
-  /verification-codes:
+  /common/v1/verification-codes:
     post:
       summary: 获取短信验证码
       operationId: post-verification-codes
@@ -32,7 +23,8 @@ paths:
       description: 获取短信校验码，用于相关接口做二次验证，例如：提现、供应商付款等
       tags:
         - 通用
-  '/dictionaries/district/{code}':
+    parameters: []
+  '/common/v1/dictionaries/district/{code}':
     parameters:
       - schema:
           type: string
@@ -58,7 +50,20 @@ paths:
       operationId: get-dictionaries-district-code
       description: 获取省市字典，根code请填写 `CHN`
 components:
-  schemas: {}
+  schemas:
+    校验码枚举:
+      type: string
+      title: 校验码枚举
+      enum:
+        - WITHDRAW_COMBINE
+        - SUPPLIER_PAYMENT
+      example: WITHDRAW_COMBINE
+      description: |-
+        | Value | Description |
+        |--------|------------|
+        | WITHDRAW_COMBINE| 提现校验码 |
+        | SUPPLIER_PAYMENT | 供应商付款校验码 |
+
   securitySchemes:
     Authorization:
       type: oauth2
@@ -73,3 +78,12 @@ components:
           refreshUrl: ''
           scopes: {}
       description: '本接口中使用Basic Auth认证：(Authorization: Basic &lt;&lt;Basic64.encode(developerId:token)&gt;&gt;)'
+info:
+  title: 5. 通用服务
+  version: '1.0'
+  description: ''
+servers:
+  - url: 'https://global-api-sandbox.lianlianpay-inc.com'
+    description: 沙盒环境地址
+  - url: 'https://global-api.lianlianglobal.com'
+    description: 生产环境地址

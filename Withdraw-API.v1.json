@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "提现API",
+    "title": "3. 提现服务",
     "version": "1.0",
     "description": ""
   },
