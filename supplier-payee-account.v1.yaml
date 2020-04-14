@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: 7. 供应商付款收款人银行账户
+  title: 5. 供应商付款收款人银行账户
   version: '1.0'
   description: ''
 servers:
