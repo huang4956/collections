@@ -4,12 +4,12 @@ info:
   version: '1.0'
   description: ''
 servers:
-  - url: 'https://global-api-sandbox.lianlianpay-inc.com/collection/v1'
+  - url: 'https://global-api-sandbox.lianlianpay-inc.com'
     description: Sandbox
-  - url: 'https://global-api.lianlianpay.com/collection /v1'
+  - url: 'https://global-api.lianlianpay.com'
     description: Production
 paths:
-  /shops:
+  /collection /v1/shops:
     get:
       summary: 获取店铺列表
       responses:
@@ -117,15 +117,14 @@ paths:
           description: 分页大小
           required: true
       tags:
-        - 店铺
+        - 接口
+    parameters: []
 components:
   schemas:
     ShopInfo:
       title: 店铺信息对象
       type: object
       description: ''
-      x-tags:
-        - MODELS
       properties:
         platformId:
           type: string
@@ -209,3 +208,5 @@ components:
         - accountInfo
         - createTime
         - modifyTime
+      x-tags:
+        - 对象
