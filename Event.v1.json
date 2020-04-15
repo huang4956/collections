@@ -37,11 +37,8 @@
           "400": {
             "description": "Possible error codes:\n\n| Code | Description |\n|------|-------------|\n| 999995 | \\[PARAMETER\\] ERROR_MESSAGE |",
             "schema": {
-              "$ref": "./error.oas2.yml#/definitions/error"
+              "type": "object"
             }
-          },
-          "500": {
-            "description": ""
           }
         },
         "summary": "查询事件列表",
@@ -96,12 +93,6 @@
             "schema": {
               "$ref": "#/definitions/event"
             }
-          },
-          "404": {
-            "description": ""
-          },
-          "500": {
-            "description": ""
           }
         },
         "summary": "查询事件",
@@ -141,7 +132,7 @@
           "description": "流水单号"
         },
         "topic": {
-          "$ref": "#/components/schemas/eventTopicEnum"
+          "$ref": "#/definitions/eventTopicEnum"
         },
         "data": {
           "type": "object",
