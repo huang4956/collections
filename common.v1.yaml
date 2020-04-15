@@ -117,7 +117,7 @@ components:
           scopes: {}
       description: '本接口中使用Basic Auth认证：(Authorization: Basic &lt;&lt;Basic64.encode(developerId:token)&gt;&gt;)'
 info:
-  title: 7. 通用服务
+  title: 6. 通用服务
   version: '1.0'
   description: ''
 servers:

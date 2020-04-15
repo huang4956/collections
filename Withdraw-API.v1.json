@@ -18,7 +18,7 @@
   "paths": {
     "/collection/v1/withdraws": {
       "get": {
-        "summary": "获取提现列表",
+        "summary": "查询提现记录",
         "responses": {},
         "operationId": "",
         "description": "接口聚合了店铺、多比、提前宝提现列表查询，结果按创建时间排序。",

@@ -11,7 +11,7 @@ servers:
 paths:
   /collection /v1/shops:
     get:
-      summary: 获取店铺列表
+      summary: 查询店铺列表
       responses:
         '200':
           description: OK
@@ -29,7 +29,7 @@ paths:
                 required:
                   - total
                   - list
-      operationId: ''
+      operationId: get-shops
       description: 根据平台类型和地区查询店铺列表，结果按更新时间排序。
       requestBody: {}
       parameters:

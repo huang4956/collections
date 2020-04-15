@@ -160,7 +160,7 @@ paths:
       tags:
         - 接口
     get:
-      summary: 获取多比钱包转入记录
+      summary: 查询多比钱包转入记录
       operationId: ''
       responses:
         '200':
