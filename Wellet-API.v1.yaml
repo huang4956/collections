@@ -86,7 +86,7 @@ paths:
     parameters: []
   /collection/v1/wallets:
     get:
-      summary: 获取多比钱包账号余额信息
+      summary: 查询多比钱包账户余额
       responses:
         '200':
           description: OK
@@ -279,7 +279,7 @@ paths:
       description: 根据币种查询多比充值银行账号
   /supplier/v1/card-recharges:
     get:
-      summary: 查询多比银行充值转入记录
+      summary: 查询多比银行充值记录
       tags:
         - 接口
       responses:
@@ -408,7 +408,7 @@ components:
           description: 账户名
         accountNo:
           type: string
-          description: 卡号
+          description: 账号
         routingNumber:
           type: string
           description: 9位路线号
