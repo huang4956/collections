@@ -71,11 +71,11 @@
               "properties": {
                 "total": {
                   "type": "integer",
-                  "description": "Registered webhook number"
+                  "description": "总数"
                 },
                 "list": {
                   "type": "array",
-                  "description": "Registered webhook data object list",
+                  "description": "",
                   "items": {
                     "$ref": "#/definitions/webhook"
                   }
@@ -179,12 +179,12 @@
       "properties": {
         "id": {
           "type": "string",
-          "description": "Webhook registration id in Lianlian Pay's system",
+          "description": "流水单号",
           "maxLength": 32
         },
         "url": {
           "type": "string",
-          "description": "Client webhook url",
+          "description": "webhook url",
           "maxLength": 64
         },
         "topic": {
@@ -192,7 +192,7 @@
         },
         "createTime": {
           "type": "string",
-          "description": "Webhook registration time, UTC+0 timestamp",
+          "description": "创建时间",
           "format": "date-time"
         }
       },
@@ -208,8 +208,12 @@
   "schemes": [
     "https"
   ],
-  "consumes": [],
-  "produces": [],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
   "securityDefinitions": {},
   "security": [
     {

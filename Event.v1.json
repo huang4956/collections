@@ -18,11 +18,11 @@
               "properties": {
                 "total": {
                   "type": "integer",
-                  "description": "Total event count"
+                  "description": "总数"
                 },
                 "list": {
                   "type": "array",
-                  "description": "Event object list",
+                  "description": "",
                   "items": {
                     "$ref": "#/definitions/event"
                   }
@@ -52,7 +52,7 @@
             "in": "query",
             "name": "topic",
             "type": "array",
-            "description": "Event topic defined in Lianlian Pay's system.",
+            "description": "topic",
             "items": {
               "type": "string"
             }
@@ -61,7 +61,7 @@
             "in": "query",
             "name": "pageNum",
             "type": "integer",
-            "description": "If nonzero, skip this number of results before returning data. Used with `pageSize` to provide pagination for large datasets.",
+            "description": "页码",
             "allowEmptyValue": true,
             "minimum": 1,
             "default": 1
@@ -70,7 +70,7 @@
             "in": "query",
             "name": "pageSize",
             "type": "integer",
-            "description": "If nonzero, return no more than this number of results. Used with `pageNum` to provide pagination for large datasets. Unless otherwise specified, the maximum number of records that can be returned from an API call is 20 records",
+            "description": "分页大小",
             "allowEmptyValue": true,
             "default": 20
           },
@@ -80,12 +80,7 @@
             "type": "string",
             "default": "MAXIMUM_RETRIES_REACHED",
             "allowEmptyValue": true,
-            "enum": [
-              "PROCESSING",
-              "SUCCESS",
-              "MAXIMUM_RETRIES_REACHED"
-            ],
-            "description": "Event status defined in Lianlian Pay's system. One of:\n\n| status | description |\n|--------|-------------|\n| PROCESSING | Event is under processing |\n| SUCCESS | Successfully notified client via webhook. Received `200` HTTP status code return from registered webhook URL. |\n| MAXIMUM_RETRIES_REACHED | Callback stopped as maximum retry number reached without success. |"
+            "description": "状态\n\n| status | description |\n|--------|-------------|\n| PROCESSING | 处理中 |\n| SUCCESS | 处理成功 |\n| MAXIMUM_RETRIES_REACHED | 处理失败 |"
           }
         ],
         "tags": [
@@ -143,10 +138,10 @@
       "properties": {
         "id": {
           "type": "string",
-          "description": "Event id in Lianlian Pay's system"
+          "description": "流水单号"
         },
         "topic": {
-          "$ref": "#/definitions/eventTopicEnum"
+          "$ref": "#/components/schemas/eventTopicEnum"
         },
         "data": {
           "type": "object",
@@ -154,12 +149,12 @@
         },
         "createTime": {
           "type": "string",
-          "description": "Event created time, UTC+0",
+          "description": "创建时间",
           "format": "date-time"
         },
         "status": {
           "type": "string",
-          "description": "Event status defined in Lianlian Pay's system. One of:\n\n| status | description |\n|--------|-------------|\n| PROCESSING | Event is under processing |\n| SUCCESS | Successfully notified client via webhook. Received `200` HTTP status code return from registered webhook URL. |\n| MAXIMUM_RETRIES_REACHED | Callback notification stopped as maximum retrying number reached. |",
+          "description": "状态\n\n| status | description |\n|--------|-------------|\n| PROCESSING | 处理中 |\n| SUCCESS | 处理成功 |\n| MAXIMUM_RETRIES_REACHED | 处理失败 |",
           "enum": [
             "PROCESSING",
             "SUCCESS",
@@ -168,7 +163,7 @@
         },
         "webhookURL": {
           "type": "string",
-          "description": "Registered webhook url for this event"
+          "description": "webhook url"
         }
       },
       "required": [
@@ -178,7 +173,7 @@
       ]
     },
     "eventTopicEnum": {
-      "type": "string",
+      "type": "object",
       "title": "Event-Topic枚举",
       "description": "定义的Topic\n\n| Topic | Event-Data名称| 描述|\n|--------|------------|------------|\n| withdraw.event.response | 提现Event|在提现成功、提现失败时触发相关事件|\n",
       "x-tags": [
