@@ -4,15 +4,15 @@ info:
   version: '1.0'
   description: ''
 servers:
-  - url: 'https://global-api-sandbox.lianlianpay-inc.com/collection/v1'
+  - url: 'https://global-api-sandbox.lianlianpay-inc.com'
     description: Sandbox
   - description: Production
-    url: 'https://global-api.lianlianpay.com/collection/v1'
+    url: 'https://global-api.lianlianpay.com'
 paths:
-  /wallet-withdraws:
+  /collection/v1/wallet-withdraws:
     post:
       summary: 多比钱包提现
-      operationId: post-withdraw
+      operationId: ''
       responses:
         '200':
           description: OK
@@ -46,7 +46,7 @@ paths:
 
         步骤3：调用该提现接口。
 
-        步骤3：WebHook结果通知，事件名称：WITHDRAW_EVENT_RESPONSE。
+        步骤4：WebHook结果通知，事件名称：WITHDRAW_EVENT_RESPONSE。
       requestBody:
         content:
           application/json:
@@ -82,9 +82,9 @@ paths:
                 - externalTransId
         description: ''
       tags:
-        - 多比钱包API
+        - 接口
     parameters: []
-  '/wallets/currency/{currency}':
+  /collection/v1/wallets:
     get:
       summary: 获取多比钱包账号余额信息
       responses:
@@ -93,53 +93,24 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  balance:
-                    type: string
-                    description: 可用余额
-                  currency:
-                    type: string
-                    description: 币种
-                  status:
-                    description: |-
-                      状态
-
-                      id|message
-                      -|-
-                      1|正常
-                      2|冻结
-                      3|挂失
-                      4|注销
-                      5|已迁移
-                    type: integer
-                  createTime:
-                    type: string
-                    description: 创建时间
-                  avaExchangeBalance:
-                    type: string
-                    description: 可汇兑余额
-                required:
-                  - balance
-                  - currency
-                  - status
-                  - createTime
-                  - avaExchangeBalance
-      operationId: get-currency
+                type: array
+                items:
+                  $ref: '#/components/schemas/WalletInfo'
+      operationId: ''
       description: 获取指定币种多比钱包信息以及余额。
-      parameters: []
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: currency
+          description: 币种
       tags:
-        - 多比钱包API
-    parameters:
-      - schema:
-          type: string
-        name: currency
-        in: path
-        required: true
-  /wallet-recharges:
+        - 接口
+    parameters: []
+  /collection/v1/wallet-recharges:
     post:
       summary: 多比钱包转入
-      operationId: post-recharge
+      operationId: ''
       responses:
         '200':
           description: OK
@@ -187,10 +158,10 @@ paths:
             examples: {}
         description: ''
       tags:
-        - 多比钱包API
+        - 接口
     get:
       summary: 获取多比钱包转入记录
-      operationId: get-recharge
+      operationId: ''
       responses:
         '200':
           description: OK
@@ -200,7 +171,7 @@ paths:
                 type: object
                 properties:
                   total:
-                    type: string
+                    type: number
                     description: 总数
                   list:
                     type: array
@@ -264,12 +235,15 @@ paths:
           required: true
         - schema:
             type: string
+            maxLength: 100
+            minLength: 1
           in: query
           name: pageSize
           description: 分页大小
           required: true
         - schema:
             type: string
+            default: '1'
           in: query
           name: pageNum
           description: 页数
@@ -280,8 +254,89 @@ paths:
           name: externalTransId
           description: 第三方单号
       tags:
-        - 多比钱包API
+        - 接口
     parameters: []
+  /supplier/v1/cards:
+    get:
+      summary: 查询多比充值银行账号
+      tags:
+        - 接口
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+      operationId: ''
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: currency
+          description: 币种
+          required: true
+      description: 根据币种查询多比充值银行账号
+  /supplier/v1/card-recharges:
+    get:
+      summary: 查询多比银行充值转入记录
+      tags:
+        - 接口
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: number
+                  list:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CardRechargeInfo'
+      operationId: ''
+      description: 查询多比银行充值转入记录
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: accountNo
+          description: 银行账号
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: endTime
+          description: 结束时间
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: startTime
+          description: 开始时间
+          required: true
+        - schema:
+            type: string
+            default: '1'
+          in: query
+          name: pageNum
+          required: true
+          description: 页码
+        - schema:
+            type: string
+            maxLength: 100
+            minLength: 1
+          in: query
+          name: pageSize
+          required: true
+          description: 分页大小
+        - schema:
+            type: string
+          in: query
+          name: currency
+          description: 币种
 components:
   schemas:
     RechargeDetail:
@@ -299,4 +354,103 @@ components:
         - shopAccountId
         - amount
       x-tags:
-        - MODELS
+        - 对象
+    CardRechargeInfo:
+      title: 多比银行充值转入记录对象
+      type: object
+      description: ''
+      properties:
+        bankTransferId:
+          type: string
+          description: 充值流水号
+        payerAccountName:
+          type: string
+          description: 打款人账户名称
+        payerAccountNo:
+          type: string
+          description: 打款人账号
+        amount:
+          type: string
+          description: 金额
+        currency:
+          type: string
+          description: 币种
+        createTime:
+          type: string
+          description: 创建时间
+        accountNo:
+          type: string
+          description: 收款人账号
+      required:
+        - bankTransferId
+        - payerAccountName
+        - amount
+        - currency
+        - createTime
+        - accountNo
+      x-tags:
+        - 对象
+    Card:
+      title: 多比充值银行账号对象
+      type: object
+      description: ''
+      x-tags:
+        - 对象
+      properties:
+        currency:
+          type: string
+          description: 币种
+        address:
+          type: string
+          description: 银行卡地址
+        accountName:
+          type: string
+          description: 账户名
+        accountNo:
+          type: string
+          description: 卡号
+        routingNumber:
+          type: string
+          description: 9位路线号
+        swiftCode:
+          type: string
+          description: SWIFT code
+      required:
+        - currency
+        - address
+        - accountName
+        - accountNo
+        - routingNumber
+        - swiftCode
+    WalletInfo:
+      title: 多比钱包对象
+      type: object
+      properties:
+        balance:
+          type: string
+          description: 可用余额
+        avaExchangeBalance:
+          type: string
+          description: 可汇兑余额
+        createTime:
+          type: string
+          description: 创建时间
+        currency:
+          type: string
+          description: 币种
+        status:
+          description: |-
+            状态
+
+            status|message
+            -|-
+            1|正常
+          type: integer
+      required:
+        - balance
+        - avaExchangeBalance
+        - createTime
+        - currency
+        - status
+      x-tags:
+        - 对象
