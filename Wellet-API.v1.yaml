@@ -171,7 +171,7 @@ paths:
                 type: object
                 properties:
                   total:
-                    type: number
+                    type: integer
                     description: 总数
                   list:
                     type: array
@@ -234,15 +234,17 @@ paths:
           description: 结束时间
           required: true
         - schema:
-            type: string
+            type: integer
             maxLength: 100
             minLength: 1
+            maximum: 100
+            minimum: 1
           in: query
           name: pageSize
           description: 分页大小
           required: true
         - schema:
-            type: string
+            type: integer
             default: '1'
           in: query
           name: pageNum
@@ -291,7 +293,7 @@ paths:
                 type: object
                 properties:
                   total:
-                    type: number
+                    type: integer
                   list:
                     type: array
                     items:
@@ -318,16 +320,18 @@ paths:
           description: 开始时间
           required: true
         - schema:
-            type: string
+            type: integer
             default: '1'
           in: query
           name: pageNum
           required: true
           description: 页码
         - schema:
-            type: string
+            type: integer
             maxLength: 100
             minLength: 1
+            maximum: 100
+            minimum: 1
           in: query
           name: pageSize
           required: true

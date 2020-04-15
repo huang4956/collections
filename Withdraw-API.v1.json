@@ -43,7 +43,9 @@
           },
           {
             "schema": {
-              "type": "string"
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1
             },
             "in": "query",
             "name": "pageSize",
@@ -52,7 +54,8 @@
           },
           {
             "schema": {
-              "type": "string"
+              "type": "integer",
+              "default": 1
             },
             "in": "query",
             "name": "pageNum",
@@ -112,7 +115,7 @@
                 "type": "object",
                 "properties": {
                   "total": {
-                    "type": "string"
+                    "type": "integer"
                   },
                   "list": {
                     "type": "array",
@@ -146,7 +149,7 @@
                   "type": "object",
                   "properties": {
                     "total": {
-                      "type": "number"
+                      "type": "integer"
                     },
                     "list": {
                       "type": "array",
@@ -173,8 +176,9 @@
           },
           {
             "schema": {
-              "type": "number",
-              "minimum": 1
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
             },
             "in": "query",
             "name": "pageNum",
@@ -183,9 +187,11 @@
           },
           {
             "schema": {
-              "type": "string",
+              "type": "integer",
               "maxLength": 100,
-              "minLength": 1
+              "minLength": 1,
+              "maximum": 100,
+              "minimum": 1
             },
             "in": "query",
             "name": "pageSize",

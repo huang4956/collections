@@ -21,12 +21,12 @@ paths:
                 type: object
                 properties:
                   total:
-                    type: string
+                    type: integer
                   list:
                     type: array
                     items:
                       $ref: '#/components/schemas/ShopInfo'
-      operationId: get-shops
+      operationId: ''
       description: 根据平台类型和地区查询店铺列表，结果按更新时间排序。
       requestBody: {}
       parameters:
@@ -79,15 +79,36 @@ paths:
             type: string
           in: query
           name: region
-          description: 地区
+          description: |-
+            地区
+
+            |region|
+            |-|
+            |US|
+            |EU|
+            |JP|
+            |AU|
+            |AE|
+            |IN|
+            |MY|
+            |ID|
+            |TW|
+            |TH|
+            |PH|
+            |SG|
+            |HK|
+            |KR|
         - schema:
-            type: string
+            type: integer
+            maxLength: 100
+            minLength: 1
           in: query
           name: pageSize
           description: 分页大小
           required: true
         - schema:
-            type: string
+            type: integer
+            default: '1'
           in: query
           name: pageNum
           description: 页码
