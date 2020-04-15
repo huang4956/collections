@@ -64,16 +64,11 @@
           },
           {
             "schema": {
-              "type": "string",
-              "enum": [
-                "BALANCE",
-                "WALLET",
-                "CREDIT"
-              ]
+              "type": "string"
             },
             "in": "query",
             "name": "withdrawType",
-            "description": "提现类型"
+            "description": "提现类型\n\nwithdrawType|message\n-|-\nBALANCE|余额提现\nWALLET|多比提现\nCREDIT|提前宝提现"
           },
           {
             "schema": {
@@ -97,7 +92,7 @@
             },
             "in": "query",
             "name": "status",
-            "description": "状态 \n\nid|message\n-|-\n1|提现中\n2|提现成功\n3|提现失败"
+            "description": "状态 \n\nstatus|message\n-|-\n1|提现中\n2|提现成功\n3|提现失败"
           },
           {
             "schema": {
@@ -136,7 +131,7 @@
     },
     "/collection/v1/bankcards": {
       "get": {
-        "summary": "查询客户提现银行账号信息",
+        "summary": "查询提现银行账号信息",
         "tags": [
           "接口"
         ],
