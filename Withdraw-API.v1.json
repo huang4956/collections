@@ -7,20 +7,20 @@
   },
   "servers": [
     {
-      "url": "https://global-api-sandbox.lianlianpay-inc.com/collection/v1",
+      "url": "https://global-api-sandbox.lianlianpay-inc.com",
       "description": "Sandbox"
     },
     {
-      "url": "https://global-api.lianlianpay.com/collection/v1",
+      "url": "https://global-api.lianlianpay.com",
       "description": "Production"
     }
   ],
   "paths": {
-    "/withdraws": {
+    "/collection/v1/withdraws": {
       "get": {
         "summary": "获取提现列表",
         "responses": {},
-        "operationId": "get-withdraws",
+        "operationId": "",
         "description": "接口聚合了店铺、多比、提前宝提现列表查询，结果按创建时间排序。",
         "parameters": [
           {
@@ -126,7 +126,72 @@
           }
         },
         "tags": [
-          "提现API"
+          "接口"
+        ]
+      },
+      "parameters": []
+    },
+    "/collection/v1/bankcards": {
+      "get": {
+        "summary": "查询客户提现银行账号信息",
+        "tags": [
+          "接口"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "total": {
+                      "type": "number"
+                    },
+                    "list": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/BankAccountInfo"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "",
+        "description": "该接口支持按币种查询客户提现银行账号信息。",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "currency",
+            "description": "币种"
+          },
+          {
+            "schema": {
+              "type": "number",
+              "minimum": 1
+            },
+            "in": "query",
+            "name": "pageNum",
+            "description": "页码",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "maxLength": 100,
+              "minLength": 1
+            },
+            "in": "query",
+            "name": "pageSize",
+            "description": "分页大小",
+            "required": true
+          }
         ]
       }
     }
@@ -245,7 +310,7 @@
           "creditFeeAmount"
         ],
         "x-tags": [
-          "MODELS"
+          "对象"
         ]
       },
       "WithdrawDetail": {
@@ -301,7 +366,54 @@
           "creditFeeAmount"
         ],
         "x-tags": [
-          "MODELS"
+          "对象"
+        ]
+      },
+      "BankAccountInfo": {
+        "title": "提现银行账号对象",
+        "type": "object",
+        "x-tags": [
+          "对象"
+        ],
+        "description": "",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "账号ID"
+          },
+          "bankAccountNo": {
+            "type": "string",
+            "description": "提现银行账号"
+          },
+          "bankAccountName": {
+            "type": "string",
+            "description": "提现银行账号户名"
+          },
+          "bankName": {
+            "type": "string",
+            "description": "银行名称"
+          },
+          "currency": {
+            "type": "string",
+            "description": "币种列表 [\"USD\"]"
+          },
+          "district": {
+            "type": "string",
+            "description": "地区"
+          },
+          "bankAccountType": {
+            "type": "string",
+            "description": "银行卡类型\n\nbankAccountType|message\n-|-\n0|借记卡\n1|信用卡\n2|对公银行账号"
+          }
+        },
+        "required": [
+          "id",
+          "bankAccountNo",
+          "bankAccountName",
+          "bankName",
+          "currency",
+          "district",
+          "bankAccountType"
         ]
       }
     }
