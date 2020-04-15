@@ -8,7 +8,7 @@
   },
   "host": "global-api-sandbox.lianlianpay-inc.com",
   "paths": {
-    "/events": {
+    "/common/v1/events": {
       "get": {
         "responses": {
           "200": {
@@ -83,24 +83,28 @@
         "tags": [
           "接口"
         ]
-      }
+      },
+      "parameters": []
     },
-    "/events/{eventId}": {
+    "/common/v1/events/{eventId}": {
       "get": {
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/event"
-            }
-          }
-        },
         "summary": "查询事件",
         "description": "根据eventId查询事件对象",
         "operationId": "get-event",
         "tags": [
           "接口"
-        ]
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/event"
+            },
+            "examples": {
+              "example-1": {}
+            }
+          }
+        }
       },
       "parameters": [
         {
@@ -197,8 +201,12 @@
   "schemes": [
     "https"
   ],
-  "consumes": [],
-  "produces": [],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
   "securityDefinitions": {},
   "security": [
     {
