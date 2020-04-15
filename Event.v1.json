@@ -137,7 +137,7 @@
   "definitions": {
     "event": {
       "type": "object",
-      "title": "回调事件对象",
+      "title": "回调事件",
       "description": "调用注册的Webhook url收到200 HTTP状态代码后，事件状态将更新为SUCCESS。 在成功之前，每60分钟将事件发送到注册的Webhook url，总共24次。 全部24次重试均未成功后，事件状态将更新为MAXIMUM_RETRIES_REACHED。",
       "x-tags": [
         "对象"
@@ -206,7 +206,7 @@
       ]
     },
     "WithdrawEvent": {
-      "title": "提现事件对象",
+      "title": "提现事件",
       "type": "object",
       "properties": {
         "externalTransId": {

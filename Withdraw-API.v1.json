@@ -202,7 +202,7 @@
   "components": {
     "schemas": {
       "WithdrawInfo": {
-        "title": "提现单对象",
+        "title": "提现单",
         "type": "object",
         "description": "",
         "x-tags": [
@@ -317,7 +317,7 @@
         ]
       },
       "WithdrawDetail": {
-        "title": "提现明细对象",
+        "title": "提现明细",
         "type": "object",
         "properties": {
           "id": {
@@ -373,7 +373,7 @@
         ]
       },
       "BankAccountInfo": {
-        "title": "提现银行账号对象",
+        "title": "提现银行账号",
         "type": "object",
         "x-tags": [
           "对象"

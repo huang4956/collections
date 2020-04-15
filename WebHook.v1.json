@@ -175,7 +175,7 @@
   "definitions": {
     "webhook": {
       "type": "object",
-      "title": "注册事件返回对象",
+      "title": "注册事件结果",
       "description": "",
       "properties": {
         "id": {
