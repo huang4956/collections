@@ -177,7 +177,6 @@
           {
             "schema": {
               "type": "integer",
-              "minimum": 1,
               "default": 1
             },
             "in": "query",
@@ -188,8 +187,6 @@
           {
             "schema": {
               "type": "integer",
-              "maxLength": 100,
-              "minLength": 1,
               "maximum": 100,
               "minimum": 1
             },
@@ -208,6 +205,9 @@
         "title": "提现单对象",
         "type": "object",
         "description": "",
+        "x-tags": [
+          "对象"
+        ],
         "properties": {
           "externalTransId": {
             "type": "string",
@@ -215,7 +215,7 @@
           },
           "status": {
             "type": "integer",
-            "description": "状态 \n\nid|message\n-|-\n1|提现中\n2|提现成功\n3|提现失败"
+            "description": "状态 \n\nstatus|message\n-|-\n1|提现中\n2|提现成功\n3|提现失败"
           },
           "withdrawType": {
             "type": "string",
@@ -314,9 +314,6 @@
           "withdrawDetailList",
           "feeRate",
           "creditFeeAmount"
-        ],
-        "x-tags": [
-          "对象"
         ]
       },
       "WithdrawDetail": {

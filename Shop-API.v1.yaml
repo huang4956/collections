@@ -103,18 +103,18 @@ paths:
             |KR|
         - schema:
             type: integer
-            maxLength: 100
-            minLength: 1
-          in: query
-          name: pageSize
-          description: 分页大小
-          required: true
-        - schema:
-            type: integer
-            default: '1'
+            default: 1
           in: query
           name: pageNum
           description: 页码
+          required: true
+        - schema:
+            type: integer
+            maximum: 100
+            minimum: 1
+          in: query
+          name: pageSize
+          description: 分页大小
           required: true
       tags:
         - 店铺

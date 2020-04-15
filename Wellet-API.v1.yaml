@@ -235,17 +235,7 @@ paths:
           required: true
         - schema:
             type: integer
-            maxLength: 100
-            minLength: 1
-            maximum: 100
-            minimum: 1
-          in: query
-          name: pageSize
-          description: 分页大小
-          required: true
-        - schema:
-            type: integer
-            default: '1'
+            default: 1
           in: query
           name: pageNum
           description: 页数
@@ -255,6 +245,14 @@ paths:
           in: query
           name: externalTransId
           description: 第三方单号
+        - schema:
+            type: integer
+            maximum: 100
+            minimum: 1
+          in: query
+          name: pageSize
+          description: 分页大小
+          required: true
       tags:
         - 接口
     parameters: []
@@ -321,26 +319,24 @@ paths:
           required: true
         - schema:
             type: integer
-            default: '1'
+            default: 1
           in: query
           name: pageNum
           required: true
           description: 页码
         - schema:
-            type: integer
-            maxLength: 100
-            minLength: 1
-            maximum: 100
-            minimum: 1
-          in: query
-          name: pageSize
-          required: true
-          description: 分页大小
-        - schema:
             type: string
           in: query
           name: currency
           description: 币种
+        - schema:
+            type: integer
+            maximum: 100
+            minimum: 1
+          in: query
+          name: pageSize
+          description: 分页大小
+          required: true
 components:
   schemas:
     RechargeDetail:
