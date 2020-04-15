@@ -4,7 +4,11 @@
     "title": "8. EVENT服务",
     "version": "1.0",
     "description": "本部分包含了通知系统的操作和模型。 调用url为客户提供附加信息，以更好地处理系统生成的事件。\n\n客户端应通过Webhook服务注册事件回调，以接收任何事件。",
-    "contact": {}
+    "contact": {
+      "name": "Technical Support",
+      "url": "fx_support@lianlianpay.com",
+      "email": "fx_support@lianlianpay.com"
+    }
   },
   "host": "global-api-sandbox.lianlianpay-inc.com",
   "paths": {
@@ -100,9 +104,7 @@
             "schema": {
               "$ref": "#/definitions/event"
             },
-            "examples": {
-              "example-1": {}
-            }
+            "examples": {}
           }
         }
       },
