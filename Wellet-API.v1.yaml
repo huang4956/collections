@@ -340,7 +340,7 @@ paths:
 components:
   schemas:
     RechargeDetail:
-      title: 充值明细对象
+      title: 多比余额转入明细
       type: object
       description: ''
       properties:
@@ -356,7 +356,7 @@ components:
       x-tags:
         - 对象
     CardRechargeInfo:
-      title: 多比银行充值转入记录对象
+      title: 多比银行充值记录
       type: object
       description: ''
       properties:
@@ -391,7 +391,7 @@ components:
       x-tags:
         - 对象
     Card:
-      title: 多比充值银行账号对象
+      title: 多比充值银行账号
       type: object
       description: ''
       x-tags:
@@ -423,7 +423,7 @@ components:
         - routingNumber
         - swiftCode
     WalletInfo:
-      title: 多比钱包对象
+      title: 多比钱包余额
       type: object
       properties:
         balance:

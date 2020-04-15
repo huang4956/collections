@@ -122,7 +122,7 @@ paths:
 components:
   schemas:
     ShopInfo:
-      title: 店铺信息对象
+      title: 店铺信息
       type: object
       description: ''
       properties:
