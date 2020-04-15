@@ -95,7 +95,7 @@
           }
         },
         "summary": "查询WebHook列表",
-        "description": "查询注册WebHook事件的列表",
+        "description": "查询WebHook列表",
         "operationId": "get-webhook-registration-list",
         "tags": [
           "接口"
@@ -116,7 +116,7 @@
     "/common/v1/webhook/{webhookId}": {
       "get": {
         "summary": "查询WebHook",
-        "description": "通过webhookId查询WebHook注册对象",
+        "description": "通过webhookId查询WebHook",
         "operationId": "get-webhook-registration",
         "responses": {
           "200": {
@@ -146,7 +146,7 @@
           }
         },
         "summary": "删除WebHook",
-        "description": "删除WebHook注册对象",
+        "description": "删除WebHook",
         "operationId": "delete-webhook-registration",
         "tags": [
           "接口"
