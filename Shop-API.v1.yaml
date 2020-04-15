@@ -9,7 +9,7 @@ servers:
   - url: 'https://global-api.lianlianpay.com'
     description: Production
 paths:
-  /collection /v1/shops:
+  /collection/v1/shops:
     get:
       summary: 查询店铺列表
       responses:
