@@ -26,6 +26,9 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/ShopInfo'
+                required:
+                  - total
+                  - list
       operationId: ''
       description: 根据平台类型和地区查询店铺列表，结果按更新时间排序。
       requestBody: {}
@@ -38,7 +41,7 @@ paths:
           description: |-
             平台类型
 
-            code|name
+            platform|name
             -|-
             Amazon|亚马逊
             FBA|亚马逊印度站（FBA）
@@ -121,6 +124,8 @@ components:
       title: 店铺信息对象
       type: object
       description: ''
+      x-tags:
+        - MODELS
       properties:
         platformId:
           type: string
@@ -142,7 +147,7 @@ components:
           description: |-
             状态
 
-            id|message
+            status|message
             -|-
             0|待完善信息
             1|待审核
@@ -204,5 +209,3 @@ components:
         - accountInfo
         - createTime
         - modifyTime
-      x-tags:
-        - MODELS
