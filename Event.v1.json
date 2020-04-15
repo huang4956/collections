@@ -47,7 +47,7 @@
           }
         },
         "summary": "查询事件列表",
-        "description": "Get a list of Lianlian Pay system generated events. Empty list will be returned if there is no applicable events.\n\nReturn type is List<`Event`>",
+        "description": "查询事件列表",
         "operationId": "get-event-list",
         "parameters": [
           {

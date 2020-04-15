@@ -29,8 +29,8 @@
             "description": ""
           }
         },
-        "summary": "注册事件",
-        "description": "注册一个webHook事件，系统会自动推送事件对象。",
+        "summary": "注册WebHook",
+        "description": "注册webHook，系统会自动推送事件对象。",
         "operationId": "",
         "parameters": [
           {
@@ -106,7 +106,7 @@
             "description": ""
           }
         },
-        "summary": "查询注册事件列表",
+        "summary": "查询注册WebHook列表",
         "description": "查询注册WebHook事件的列表",
         "operationId": "get-webhook-registration-list",
         "tags": [
