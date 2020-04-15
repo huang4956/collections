@@ -173,6 +173,9 @@
       "type": "object",
       "title": "注册WebHook结果",
       "description": "",
+      "x-tags": [
+        "对象"
+      ],
       "properties": {
         "id": {
           "type": "string",
@@ -185,7 +188,7 @@
           "maxLength": 64
         },
         "topic": {
-          "$ref": "./Event.v1.json#/definitions/event-topic-enum"
+          "$ref": "./Event.v1.json#/definitions/eventTopicEnum"
         },
         "createTime": {
           "type": "string",
@@ -198,9 +201,6 @@
         "url",
         "topic",
         "createTime"
-      ],
-      "x-tags": [
-        "对象"
       ]
     }
   },
