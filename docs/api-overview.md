@@ -181,6 +181,3 @@ LLPAY-Signature:t=1574130398,v=b0VbG4uGA69gR4T1FFc7NzqbiBoDEOBvkQtJXytQd7dY+WDo0
       "kycStatus": "success"
     }
 
-# Webhook
-
-你可以配置webhook地址来接收连连这边的回调信息（`event`），具体的回调信息（`event`）在相应的接口中定义
