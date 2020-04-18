@@ -49,6 +49,38 @@ paths:
                       $ref: '#/components/schemas/district'
       operationId: get-dictionaries-district-code
       description: 获取省市字典，根code请填写 `CHN`
+  /documents:
+    post:
+      summary: 1. Upload Document
+      operationId: post-documents
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '400':
+          description: "Bad Request\n\nPossible error codes:\n\n| Code | Description |\n|------|-------------|\n| 510002 | Unsupported document type. |\n| 999995 | \\[PARAMETER\\] ERROR_MESSAGE |\n"
+        '500':
+          description: Internal Server Error
+      description: "Upload document to Lianlian Pay system. \n\n**This method will be hosted in both US and CN**, support document(s) for US profiles should be uploaded via US endpoint and supported document(s) for CN/HK profiles should be uploaded via CN endpoint. \n\n| environment | endpoint |\n|-------------|----------|\n| US Sandbox | https://global-api-us-sandbox.lianlianpay-inc.com/escrow/v1 |\n| US Production | https://global-api-us.lianlianpay.com/escrow/v1 |\n| CN Sandbox |https://global-api-sandbox.lianlianpay-inc.com/escrow/v1 |\n| CN Production | https://global-api.lianlianpay.com/escrow/v1 |\n\nLianlian Pay system supported document types are **PDF**, **JPG**, **JPEG** and **PNG**.\n\nReturn type is `Document` object. `Document.id` should be used in other APIs if a support document is required."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Document name(including extension)
+                  maxLength: 128
+              required:
+                - name
+            examples: {}
+        description: ''
+      tags:
+        - Documents
 components:
   schemas:
     district:
